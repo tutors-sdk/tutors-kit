@@ -123,17 +123,17 @@ export function formatDate(date: Date): string {
   return [year, month, day].join("-");
 }
 
-export function initFirebase(keys: FirebaseKeys) {
+export async function initFirebase(keys: FirebaseKeys) {
   if (keys.apiKey !== "XXX") {
     initializeApp(keys);
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, keys.tutorStoreId, keys.tutorStoreSecret)
-      .then(() => {
-        console.log("Connected to TutorStore");
-      })
-      .catch((error: any) => {
-        console.log(`TutorStore Error: ${error.message}`);
-      });
+    await signInWithEmailAndPassword(auth, keys.tutorStoreId, keys.tutorStoreSecret);
+    // .then(() => {
+    //   console.log("Connected to TutorStore");
+    // })
+    // .catch((error: any) => {
+    //   console.log(`TutorStore Error: ${error.message}`);
+    // });
   }
 }
 
