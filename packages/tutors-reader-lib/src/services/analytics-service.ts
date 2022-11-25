@@ -3,7 +3,6 @@ import type { Lo } from "../types/lo-types";
 import type { Course } from "../models/course";
 import type { User } from "../types/auth-types";
 import { checkAuth } from "./auth-service";
-import { getKeys } from "../environment";
 import { currentCourse } from "../stores/stores";
 
 import { getNode, initFirebase, updateCalendar, updateCount, updateCountValue, updateLastAccess, updateStr, updateVisits } from "tutors-reader-lib/src/utils/firebase-utils";
@@ -36,7 +35,7 @@ export class AnalyticsService {
   url = "";
 
   constructor() {
-    initFirebase(getKeys().firebase);
+    //initFirebase(getKeys().firebase);
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     currentAnalytics = this;
   }
