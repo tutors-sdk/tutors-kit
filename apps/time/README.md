@@ -1,38 +1,19 @@
-# create-svelte
+# tutors-time
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A next generation reader for the [tutors-json](https://github.com/tutors-sdk/tutors-json) static site generator.
 
-## Creating a project
+Part of the [Tutors SDK](https://github.com/tutors-sdk) project, tutors-next is a [Svelte](https://svelte.dev/) & [TypeScript](https://www.typescriptlang.org/) application, which consumes JSON output from [tutors-json](https://github.com/tutors-sdk/tutors-json), rendering an interactive experience. The application identifies the published course from a URL, recovers the JSON version of the static site and then renders a Svelte application.
 
-If you're seeing this, you've probably already done this step. Congrats!
+The reader is intended for educational content, some representative examples:
 
-```bash
-# create a new project in the current directory
-npm init svelte
+- <https://wit-hdip-comp-sci.github.io>
+- <https://oth-mobile-app-dev-2019.netlify.app>
+- <https://wit-msc-agile-2019.netlify.app>
+- <https://classic-design-patterns.netlify.app>
+- <https://wit-hdip-comp-sci-2019.netlify.app>
 
-# create a new project in my-app
-npm init svelte my-app
-```
+Documentation for the Tutors SDK can be found at the [Tutors Docs](http://tutors-docs.netlify.app/) website.
 
-## Developing
+## License
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The Tutors SDK is open-source software licensed under the [MIT License](https://github.com/tutors-sdk/tutors-next/blob/development/LICENSE.md).
