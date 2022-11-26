@@ -3,7 +3,7 @@
   import { TopicNavigator } from "tutors-ui";
   import { AccordionGroup, AccordionItem } from "@brainandbones/skeleton";
 
-  export let course: Course = null;
+  export let course: Course;
 </script>
 
 <AccordionGroup>
@@ -11,7 +11,7 @@
     <AccordionItem>
       <svelte:fragment slot="summary">{topic.lo.title}</svelte:fragment>
       <svelte:fragment slot="content">
-        <TopicNavigator {topic} />
+        <TopicNavigator topic="{topic}" />
       </svelte:fragment>
     </AccordionItem>
   {/each}
