@@ -104,11 +104,7 @@ export function allVideoLos(los: Lo[]) {
 export function fixRoutes(lo: Lo) {
   if (lo.route && lo.route[0] == "#") {
     lo.route = lo.route.slice(1);
-    lo.route = "/#/" + lo.route;
-  }
-  if (lo.video && lo.video[0] == "#") {
-    lo.video = lo.video.slice(1);
-    lo.video = "/#/" + lo.video;
+    lo.route = "/" + lo.route;
   }
   if (lo.route.endsWith("md") && lo.video) {
     lo.route = lo.video;

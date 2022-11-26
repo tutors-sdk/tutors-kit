@@ -21,11 +21,11 @@ export class Course {
 
   companions: IconNavBar = {
     show: true,
-    bar: [],
+    bar: []
   };
   wallBar: IconNavBar = {
     show: true,
-    bar: [],
+    bar: []
   };
 
   constructor(lo: Lo, courseId: string) {
@@ -34,7 +34,7 @@ export class Course {
     // eslint-disable-next-line no-prototype-builtins
     if (lo.properties.hasOwnProperty("auth")) this.authLevel = lo.properties.auth as unknown as number;
     threadLos(lo);
-    lo.route = `/#/course/${courseId}`;
+    lo.route = `/course/${courseId}`;
     this.lo = lo;
     this.initCalendar();
     if (lo.properties.icon) {
@@ -141,35 +141,35 @@ export class Course {
         link: properties["slack"],
         icon: "slack",
         target: "_blank",
-        tip: "Go to module Slack channel",
+        tip: "Go to module Slack channel"
       });
     if (properties.zoom)
       this.companions.bar.push({
         link: properties["zoom"],
         icon: "zoom",
         tip: "Go to module Zoom meeting",
-        target: "_blank",
+        target: "_blank"
       });
     if (properties.moodle)
       this.companions.bar.push({
         link: properties["moodle"],
         icon: "moodle",
         target: "_blank",
-        tip: "Go to module Moodle page",
+        tip: "Go to module Moodle page"
       });
     if (properties.youtube)
       this.companions.bar.push({
         link: properties["youtube"],
         icon: "youtube",
         target: "_blank",
-        tip: "Go to module YouTube channel",
+        tip: "Go to module YouTube channel"
       });
     if (properties.teams)
       this.companions.bar.push({
         link: properties["teams"],
         icon: "teams",
         target: "_blank",
-        tip: "Go to module Teams meeting",
+        tip: "Go to module Teams meeting"
       });
     if (properties.companions) {
       for (const [key, value] of Object.entries(properties.companions)) {
@@ -179,7 +179,7 @@ export class Course {
           link: companion.link,
           icon: key,
           target: "_blank",
-          tip: companion.title,
+          tip: companion.title
         });
       }
     }
@@ -200,14 +200,14 @@ export class Course {
       link: `/#/wall/${type}/${this.url}`,
       icon: type,
       tip: `${type}s`,
-      target: "",
+      target: ""
     };
   }
 
   initCalendar() {
     const calendar: Calendar = {
       title: "unknown",
-      weeks: [],
+      weeks: []
     };
     this.calendar = calendar;
     try {
@@ -219,7 +219,7 @@ export class Course {
             date: Object.entries(calendarObj.weeks[i])[0][0],
             title: Object.entries(calendarObj.weeks[i])[0][1].title,
             type: Object.entries(calendarObj.weeks[i])[0][1].type,
-            dateObj: new Date(Object.entries(calendarObj.weeks[i])[0][0]),
+            dateObj: new Date(Object.entries(calendarObj.weeks[i])[0][0])
           };
           calendar.weeks.push(week);
         }
