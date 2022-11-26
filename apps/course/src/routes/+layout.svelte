@@ -28,7 +28,7 @@
 </svelte:head>
 
 <div id="app" class="h-full overflow-hidden">
-  <!-- <Drawer open="{infoDrawer}" position="left" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
+  <Drawer open="{infoDrawer}" position="left" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
     <InfoBar />
   </Drawer>
 
@@ -38,7 +38,7 @@
 
   <Drawer open="{tocDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
     <TocBar />
-  </Drawer> -->
+  </Drawer>
   <AppShell class="h-screen">
     <svelte:fragment slot="header">
       <NavBar />
