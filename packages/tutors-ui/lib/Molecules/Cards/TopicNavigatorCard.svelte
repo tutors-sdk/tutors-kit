@@ -34,7 +34,7 @@
 
 <div class="{cardWidths}">
   <div class="card">
-    <h3 class="px-4 pt-6 pb-2 text-center">{topic.lo.title}</h3>
+    <h3 class="px-4 pt-6 pb-2 text-center">{topic?.lo?.title}</h3>
     <div class="card-body">
       <figure class="flex justify-center">
         <Image lo="{lo}" />

@@ -197,7 +197,7 @@ export class Course {
 
   createWallLink(type: string): IconNav {
     return {
-      link: `/#/wall/${type}/${this.url}`,
+      link: `/wall/${type}/${this.url}`,
       icon: type,
       tip: `${type}s`,
       target: ""

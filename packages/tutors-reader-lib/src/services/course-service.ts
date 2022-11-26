@@ -62,10 +62,9 @@ export const courseService = {
     return lab;
   },
 
-  async readWall(url: string): Promise<Lo[]> {
-    const path = url.split("/");
-    const course = await this.readCourse(path[1]);
-    const wall = course.walls.get(path[0]);
+  async readWall(courseId: string, type: string): Promise<Lo[]> {
+    const course = await this.readCourse(courseId);
+    const wall = course.walls.get(type);
     return wall;
   },
 

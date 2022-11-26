@@ -1,5 +1,5 @@
 import type { Lo } from "../types/lo-types";
-import { fixRoutes, getSortedUnits } from "../utils/lo-utils";
+import { getSortedUnits } from "../utils/lo-utils";
 import type { Course } from "./course";
 
 function fixRoutePaths(lo: Lo) {
@@ -39,16 +39,13 @@ export class Topic {
     this.toc.push(...this.standardLos);
 
     fixRoutePaths(lo);
-    // this.toc.forEach((lo) => {
-    //   lo.parent = this;
-    //   fixRoutes(lo);
-    //   if (lo.type === "unit") {
-    //     lo.los.forEach((subLo) => {
-    //       subLo.parent = this;
-    //       fixRoutes(subLo);
-    //     });
-    //   }
-    // });
-    // fixRoutes(lo);
+    this.toc.forEach((lo) => {
+      lo.parent = this;
+      if (lo.type === "unit") {
+        lo.los.forEach((subLo) => {
+          subLo.parent = this;
+        });
+      }
+    });
   }
 }
