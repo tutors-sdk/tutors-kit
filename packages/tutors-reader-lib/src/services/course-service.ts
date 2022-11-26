@@ -38,27 +38,24 @@ export const courseService = {
     return course;
   },
 
-  async readTopic(topicId: string): Promise<Topic> {
-    const courseId = path.dirname(topicId);
+  async readTopic(courseId: string, topicId: string): Promise<Topic> {
     const course = await this.readCourse(courseId);
-    const topic = course.topicIndex.get(lastSegment(topicId));
+    const topic = course.topicIndex.get(topicId);
     currentLo.set(topic.lo);
     return topic;
   },
 
-  async readLab(url: string): Promise<Lab> {
-    const courseId = url.substring(0, url.indexOf("/"));
+  async readLab(courseId: string, labId: string): Promise<Lab> {
     const course = await this.readCourse(courseId);
-    let labId = `/#/lab/${url}`;
-    const lastSegment = url.substr(url.lastIndexOf("/") + 1);
+
+    const lastSegment = labId.substr(labId.lastIndexOf("/") + 1);
     if (!lastSegment.startsWith("book")) {
-      url = url.substr(0, url.lastIndexOf("/"));
-      labId = `/#/lab/${url}`;
+      labId = labId.substr(0, labId.lastIndexOf("/"));
     }
     const lo = course.loIndex.get(labId);
     let lab = course.hydratedLabs.get(labId);
     if (!lab) {
-      lab = new Lab(course, lo, url);
+      lab = new Lab(course, lo, labId);
       course.hydratedLabs.set(labId, lab);
     }
     currentLo.set(lab.lo);
@@ -72,11 +69,9 @@ export const courseService = {
     return wall;
   },
 
-  async readLo(url: string, loType: string): Promise<Lo> {
-    const courseId = url.substring(0, url.indexOf("/"));
+  async readLo(courseId: string, loId: string): Promise<Lo> {
     const course = await this.readCourse(courseId);
-    const ref = `/#/${loType}/${url}`;
-    const lo = course.loIndex.get(ref);
+    const lo = course.loIndex.get(loId);
     currentLo.set(lo);
     return lo;
   }

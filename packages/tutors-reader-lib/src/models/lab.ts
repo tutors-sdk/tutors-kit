@@ -41,7 +41,7 @@ export class Lab {
       const number = this.autoNumber == true ? chapter.shortTitle + ": " : "";
       const active = encodeURI(chapter.shortTitle) == this.currentChapterShortTitle ? "font-bold bg-primary-100 dark:bg-primary-800 pl-4" : "";
       const title = this.chaptersTitles.get(chapter.shortTitle);
-      nav = nav.concat(`<a href="/#/lab/${this.url}/${encodeURI(chapter.shortTitle)}"><li class="py-2 px-4 ${active}">${number}${title}</li></a>`);
+      nav = nav.concat(`<a href="${this.url}/${encodeURI(chapter.shortTitle)}"><li class="py-2 px-4 ${active}">${number}${title}</li></a>`);
 
       // horizontal nav
       if (encodeURI(chapter.shortTitle) == this.currentChapterShortTitle) {
@@ -49,14 +49,14 @@ export class Lab {
           const nav = this.lo.los[i - 1];
           const title = this.chaptersTitles.get(nav.shortTitle);
           this.horizontalNavbarHtml = this.horizontalNavbarHtml.concat(
-            `<a class="btn btn-sm capitalize" href="/#/lab/${this.url}/${encodeURI(nav.shortTitle)}"> <span aria-hidden="true">&larr;</span>&nbsp; ${number}${title} </a>`
+            `<a class="btn btn-sm capitalize" href="${this.url}/${encodeURI(nav.shortTitle)}"> <span aria-hidden="true">&larr;</span>&nbsp; ${number}${title} </a>`
           );
         }
         if (this.lo.los[i + 1] !== undefined) {
           const nav = this.lo.los[i + 1];
           const title = this.chaptersTitles.get(nav.shortTitle);
           this.horizontalNavbarHtml = this.horizontalNavbarHtml.concat(
-            `<a class="ml-auto btn btn-sm capitalize" style="margin-left: auto" href="/#/lab/${this.url}/${encodeURI(
+            `<a class="ml-auto btn btn-sm capitalize" style="margin-left: auto" href="${this.url}/${encodeURI(
               nav.shortTitle
             )}"> ${number}${title} &nbsp;<span aria-hidden="true">&rarr;</span></a>`
           );

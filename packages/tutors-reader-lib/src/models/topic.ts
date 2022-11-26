@@ -2,6 +2,19 @@ import type { Lo } from "../types/lo-types";
 import { fixRoutes, getSortedUnits } from "../utils/lo-utils";
 import type { Course } from "./course";
 
+function fixRoutePaths(lo: Lo) {
+  if (lo.route && lo.route[0] == "#") {
+    lo.route = lo.route.slice(1);
+    lo.route = "/" + lo.route;
+  }
+  if (lo.route.endsWith("md") && lo.video) {
+    lo.route = lo.video;
+  }
+  lo.los?.forEach((lo) => {
+    fixRoutePaths(lo);
+  });
+}
+
 export class Topic {
   course: Course;
   lo: Lo;
@@ -25,16 +38,17 @@ export class Topic {
     this.toc.push(...this.units);
     this.toc.push(...this.standardLos);
 
-    this.toc.forEach((lo) => {
-      lo.parent = this;
-      fixRoutes(lo);
-      if (lo.type === "unit") {
-        lo.los.forEach((subLo) => {
-          subLo.parent = this;
-          fixRoutes(subLo);
-        });
-      }
-    });
-    fixRoutes(lo);
+    fixRoutePaths(lo);
+    // this.toc.forEach((lo) => {
+    //   lo.parent = this;
+    //   fixRoutes(lo);
+    //   if (lo.type === "unit") {
+    //     lo.los.forEach((subLo) => {
+    //       subLo.parent = this;
+    //       fixRoutes(subLo);
+    //     });
+    //   }
+    // });
+    // fixRoutes(lo);
   }
 }
