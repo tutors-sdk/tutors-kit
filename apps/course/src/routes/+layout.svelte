@@ -23,7 +23,15 @@
   function setBodyThemeAttribute(): void {
     document.body.setAttribute("data-theme", $storeTheme);
   }
-  
+
+  let transitionKey = "";
+  page.subscribe((path) => {
+    console.log(path.url.pathname);
+    transitionKey = path.url.pathname;
+    if (transitionKey.includes("book")) {
+      transitionKey = "book";
+    }
+  });
 </script>
 
 <svelte:head>
@@ -49,7 +57,8 @@
     </svelte:fragment>
     <div id="top"></div>
     <div class="mx-auto my-4">
-      <PageTransition url="{$page.url.pathname}">
+      <!-- <PageTransition url="{$page.url.pathname}"> -->
+      <PageTransition url="{transitionKey}">
         <slot />
       </PageTransition>
     </div>
