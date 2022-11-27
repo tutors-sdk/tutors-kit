@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import "@brainandbones/skeleton/styles/all.css";
   import { AppShell, Drawer } from "@brainandbones/skeleton";
   import { onMount } from "svelte";
@@ -11,6 +12,7 @@
   import tutors from "tutors-ui/lib/themes/tutors.css";
 
   import { infoDrawer, calendarDrawer, onlineDrawer, tocDrawer, storeTheme } from "tutors-reader-lib/src/stores/stores";
+  import PageTransition from "$lib/PageTransition.svelte";
 
   onMount(async () => {
     storeTheme.subscribe(setBodyThemeAttribute);
@@ -21,6 +23,7 @@
   function setBodyThemeAttribute(): void {
     document.body.setAttribute("data-theme", $storeTheme);
   }
+  
 </script>
 
 <svelte:head>
@@ -46,7 +49,9 @@
     </svelte:fragment>
     <div id="top"></div>
     <div class="mx-auto my-4">
-      <slot />
+      <PageTransition url="{$page.url.pathname}">
+        <slot />
+      </PageTransition>
     </div>
     <svelte:fragment slot="pageFooter">
       <div class="bg-surface-100-800-token bottom-0 mt-2">
