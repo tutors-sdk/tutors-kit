@@ -20,14 +20,14 @@ export class Lab {
 
   vertical = true;
 
-  constructor(course: Course, lo: Lo, url: string) {
+  constructor(course: Course, lo: Lo, labId: string) {
     this.course = course;
     this.autoNumber = course.areLabStepsAutoNumbered();
-    this.url = url;
+    this.url = labId;
     this.lo = lo;
     this.objectivesHtml = convertMd(this.lo.los[0].contentMd, this.url);
     this.lo.los.forEach((chapter) => {
-      this.chaptersHtml.set(encodeURI(chapter.shortTitle), convertMd(chapter.contentMd, this.url));
+      this.chaptersHtml.set(encodeURI(chapter.shortTitle), convertMd(chapter.contentMd, labId.replace("/lab/", "")));
       this.chaptersTitles.set(chapter.shortTitle, removeLeadingHashes(chapter.title));
     });
     this.steps = Array.from(this.chaptersHtml.keys());
