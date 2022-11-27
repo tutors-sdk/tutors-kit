@@ -1,8 +1,6 @@
-import path from "path-browserify";
-import { courseUrl, currentCourse, currentLo, currentUser, week } from "../stores/stores";
+import { courseUrl, currentCourse, currentLo, week } from "../stores/stores";
 import { Course } from "../models/course";
 import { Lab } from "../models/lab";
-import { lastSegment } from "../utils/lo-utils";
 import axios from "axios";
 import type { Lo } from "../types/lo-types";
 import type { Topic } from "../models/topic";
