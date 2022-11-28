@@ -26,7 +26,6 @@
 
   let transitionKey = "";
   page.subscribe((path) => {
-    console.log(path.url.pathname);
     transitionKey = path.url.pathname;
     if (transitionKey.includes("book")) {
       transitionKey = "book";
