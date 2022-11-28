@@ -11,7 +11,7 @@
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
 
-  import { infoDrawer, calendarDrawer, onlineDrawer, tocDrawer, storeTheme } from "tutors-reader-lib/src/stores/stores";
+  import { infoDrawer, calendarDrawer, onlineDrawer, tocDrawer, storeTheme, currentCourse } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
 
   onMount(async () => {
