@@ -5,9 +5,8 @@ import type { User } from "../types/auth-types";
 import { checkAuth } from "./auth-service";
 import { currentCourse } from "../stores/stores";
 
-import { getNode, initFirebase, updateCalendar, updateCount, updateCountValue, updateLastAccess, updateStr, updateVisits } from "tutors-reader-lib/src/utils/firebase-utils";
+import { getNode, updateCalendar, updateCount, updateCountValue, updateLastAccess, updateStr, updateVisits } from "tutors-reader-lib/src/utils/firebase-utils";
 
-let currentAnalytics: AnalyticsService;
 let course: Course;
 let currentRoute = "";
 let currentLo: Lo;
@@ -19,26 +18,20 @@ currentCourse.subscribe((current) => {
 let mins = 0;
 const func = () => {
   mins = mins + 0.5;
-  if (course && !document.hidden && getKeys().firebase.apiKey !== "XXX") {
-    currentAnalytics?.reportPageCount(currentRoute, course, currentLo);
+  if (course && !document.hidden) {
+    analyticsService.reportPageCount(currentRoute, course, currentLo);
   }
 };
 setInterval(func, 30 * 1000);
 
-export class AnalyticsService {
-  courseBaseName = "";
-  userEmail = "";
-  userEmailSanitised = "";
-  userId = "";
-  firebaseIdRoot = "";
-  firebaseEmailRoot = "";
-  url = "";
-
-  constructor() {
-    //initFirebase(getKeys().firebase);
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    currentAnalytics = this;
-  }
+export const analyticsService = {
+  courseBaseName: "",
+  userEmail: "",
+  userEmailSanitised: "",
+  userId: "",
+  firebaseIdRoot: "",
+  firebaseEmailRoot: "",
+  url: "",
 
   setOnlineStatus(course: Course, status: boolean) {
     checkAuth(course, "course", this);
@@ -48,24 +41,22 @@ export class AnalyticsService {
     } else {
       updateStr(`${this.firebaseEmailRoot}/onlineStatus`, "offline");
     }
-  }
+  },
 
   pageLoad(route: string, lo: Lo) {
-    if (getKeys().firebase.apiKey === "XXX") return;
-
     currentRoute = route;
     currentLo = lo;
     if (course.authLevel > 0 && lo.type != "course") {
       checkAuth(course, "course", this);
     }
     this.reportPageLoad(route, course, lo);
-  }
+  },
 
   initRoot(url: string) {
     this.url = url;
     this.courseBaseName = url.substr(0, url.indexOf("."));
     this.firebaseIdRoot = `${this.courseBaseName}/usage`;
-  }
+  },
 
   reportLogin(user: User, url: string) {
     if (!isValidCourseName(this.courseBaseName)) return;
@@ -79,7 +70,7 @@ export class AnalyticsService {
       this.firebaseEmailRoot = `${this.courseBaseName}/users/${this.userEmailSanitised}`;
       this.updateLogin(user);
     }
-  }
+  },
 
   reportPageLoad(path: string, course: Course, lo: Lo) {
     if (!isValidCourseName(this.courseBaseName)) return;
@@ -99,7 +90,7 @@ export class AnalyticsService {
       updateLastAccess(this.firebaseEmailRoot, node, lo.title);
       updateVisits(this.firebaseEmailRoot, node);
     }
-  }
+  },
 
   reportPageCount(path: string, course: Course, lo: Lo) {
     if (!isValidCourseName(this.courseBaseName)) return;
@@ -114,7 +105,7 @@ export class AnalyticsService {
       updateCount(this.firebaseEmailRoot, node);
       updateCalendar(this.firebaseEmailRoot);
     }
-  }
+  },
 
   updateLogin(user: User) {
     updateStr(`${this.firebaseEmailRoot}/email`, user.email);
@@ -125,4 +116,4 @@ export class AnalyticsService {
     updateStr(`${this.firebaseEmailRoot}/last`, new Date().toString());
     updateCountValue(`${this.firebaseEmailRoot}/count`);
   }
-}
+};

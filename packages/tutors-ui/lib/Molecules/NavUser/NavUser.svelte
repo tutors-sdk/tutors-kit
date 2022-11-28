@@ -1,14 +1,8 @@
 <script lang="ts">
-  import {
-    currentCourse,
-    currentUser,
-    studentsOnline,
-    onlineDrawer
-  } from "tutors-reader-lib/src/stores/stores";
+  import { currentCourse, currentUser, studentsOnline, onlineDrawer } from "tutors-reader-lib/src/stores/stores";
   import type { User } from "tutors-reader-lib/src/types/metrics-types";
   import type { Course } from "tutors-reader-lib/src/models/course";
   import Icon from "../../Atoms/Icon/Icon.svelte";
-  import { getUserId, isAuthenticated } from "tutors-reader-lib/src/utils/auth-utils";
   import { getContext } from "svelte";
   import type { MetricsService } from "tutors-reader-lib/src/services/metrics-service";
   import { menu, Avatar, Divider } from "@brainandbones/skeleton";
@@ -23,15 +17,15 @@
 
   const metricsService: MetricsService = getContext("metrics");
 
-  function setTimeUrls() {
-    timeUrl = `${timeApp}/#/time/${course?.url}?${getUserId()}`;
+  function setTimeUrls(user: User) {
+    timeUrl = `${timeApp}/#/time/${course?.url}?${user.id}`;
   }
 
   currentCourse.subscribe((current) => {
     if (current) {
       course = current;
       if (user && current) {
-        setTimeUrls();
+        setTimeUrls(user);
       }
     }
   });
@@ -41,10 +35,10 @@
     user = newUser;
     gitUrl = `https://github.com/${user?.nickname}`;
     if (user && newUser) {
-      setTimeUrls();
+      setTimeUrls(user);
     }
     let course = await $currentCourse;
-    if (isAuthenticated() && course.authLevel > 0) {
+    if (course.authLevel > 0) {
       // eslint-disable-next-line no-prototype-builtins
       if (user && !user.hasOwnProperty("onlineStatus")) {
         user.onlineStatus = "online";
@@ -63,7 +57,7 @@
   currentUser.subscribe(async (newUser) => {
     user = newUser;
     let course = await $currentCourse;
-    if (isAuthenticated() && course.authLevel > 0) {
+    if (course.authLevel > 0) {
       // eslint-disable-next-line no-prototype-builtins
       if (user && !user.hasOwnProperty("onlineStatus")) {
         user.onlineStatus = "online";
@@ -83,9 +77,7 @@
     <button class="btn btn-sm space-x-1" use:menu="{{ menu: 'avatar', interactive: true }}">
       <div class="relative inline-block">
         {#if status && studentsOnline}
-          <span class="badge-icon bg-warning-500 absolute -top-2 -right-2 z-10 text-white"
-            >{$studentsOnline}</span
-          >
+          <span class="badge-icon bg-warning-500 absolute -top-2 -right-2 z-10 text-white">{$studentsOnline}</span>
         {/if}
         <span class="badge-icon absolute -bottom-2 -right-2 z-10 text-white">
           {#if status}
@@ -144,7 +136,7 @@
           </a>
         </li>
         <li>
-          <a href="#/logout" rel="noreferrer">
+          <a href="/logout" rel="noreferrer">
             <Icon type="logout" />
             <div class="ml-2">Logout</div>
           </a>

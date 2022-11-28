@@ -53,6 +53,7 @@
       {/if}
       <LayoutMenu />
       <Divider vertical="{true}" borderWidth="border-l" class="hidden lg:block" />
+      <NavUser />
       <button class="btn btn-sm" on:click="{tocDrawerOpen}">
         <Icon type="toc" />
       </button>
