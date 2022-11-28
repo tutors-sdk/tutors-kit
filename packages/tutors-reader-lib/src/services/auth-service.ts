@@ -2,7 +2,6 @@ import { analyticsService } from "./analytics-service";
 import { WebAuth } from "auth0-js";
 import type { Course } from "../models/course";
 import { encrypt, fromLocalStorage, isAuthenticated, setSession, toLocalStorage } from "../utils/auth-utils";
-import { currentUser } from "../stores/stores";
 
 export const authService = {
   auth0: {},
@@ -47,7 +46,6 @@ export const authService = {
         user.userId = encrypt(user.email);
         //analytics.reportLogin(user, url);
         setSession(authResult);
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router(`/course/${url}`);
       });
     }

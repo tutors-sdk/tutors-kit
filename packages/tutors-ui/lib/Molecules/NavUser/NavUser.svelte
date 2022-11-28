@@ -16,7 +16,7 @@
   const metricsService: MetricsService = getContext("metrics");
 
   function setTimeUrls(user: User, course: Course) {
-    timeUrl = `${timeApp}/#/time/${course?.url}?${user.id}`;
+    timeUrl = `${timeApp}/#/time/${course?.url}?${user.userId}`;
   }
 
   currentUser.subscribe(async (newUser) => {
@@ -26,7 +26,7 @@
     if (user && course) {
       setTimeUrls(user, course);
     }
-    if (course.authLevel > 0) {
+    if ($currentCourse?.authLevel > 0) {
       if (user && !user.hasOwnProperty("onlineStatus")) {
         user.onlineStatus = "online";
       } else {

@@ -4,6 +4,6 @@
   import { authenticating } from "tutors-reader-lib/src/stores/stores";
 </script>
 
-{#if $authenticating}
-  <Blank />
-{/if}
+<!-- {#if $authenticating} -->
+<TutorsTerms />
+<!-- {/if} -->
