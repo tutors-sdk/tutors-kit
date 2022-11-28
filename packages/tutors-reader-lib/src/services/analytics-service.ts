@@ -2,7 +2,7 @@ import { isValidCourseName, updateLo } from "../utils/course-utils";
 import type { Lo } from "../types/lo-types";
 import type { Course } from "../models/course";
 import type { User } from "../types/auth-types";
-import { checkAuth } from "./auth-service";
+import { authService } from "./auth-service";
 import { currentCourse } from "../stores/stores";
 
 import { getNode, updateCalendar, updateCount, updateCountValue, updateLastAccess, updateStr, updateVisits } from "tutors-reader-lib/src/utils/firebase-utils";
@@ -34,7 +34,7 @@ export const analyticsService = {
   url: "",
 
   setOnlineStatus(course: Course, status: boolean) {
-    checkAuth(course, "course", this);
+    authService.checkAuth(course);
     this.firebaseEmailRoot = `${this.courseBaseName}/users/${this.userEmailSanitised}`;
     if (status) {
       updateStr(`${this.firebaseEmailRoot}/onlineStatus`, "online");
@@ -47,7 +47,7 @@ export const analyticsService = {
     currentRoute = route;
     currentLo = lo;
     if (course.authLevel > 0 && lo.type != "course") {
-      checkAuth(course, "course", this);
+      authService.checkAuth(course);
     }
     this.reportPageLoad(route, course, lo);
   },
