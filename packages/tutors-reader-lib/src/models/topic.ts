@@ -7,6 +7,10 @@ function fixRoutePaths(lo: Lo) {
     lo.route = lo.route.slice(1);
     lo.route = "/" + lo.route;
   }
+  if (lo.video && lo.video[0] == "#") {
+    lo.video = lo.video.slice(1);
+    lo.video = "/" + lo.video;
+  }
   if (lo.route.endsWith("md") && lo.video) {
     lo.route = lo.video;
   }
