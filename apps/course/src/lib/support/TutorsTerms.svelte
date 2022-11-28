@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let authenticating = false;
+  import { authenticating } from "tutors-reader-lib/src/stores/stores";
 
   function acceptAuthenticate() {
-    authenticating = false;
+    authenticating.set(false);
   }
 </script>
 
@@ -18,28 +18,19 @@
 
     <div class="font-sm text-l p-2 text-left font-light">
       <p class="p-2">
-        You have been authenticated via your GitHub credentials and are about to enter a Tutors course. Tutors will record how much time
-        each view is active and send this to the TutorsTime data store. You can view this information via the TutorsTime feature on the
-        course Navigator.<br /><br />
-        This data is available to you + the instructor of your course, but not to other students. No other data is gathered, nor is this data
-        transmitted anywhere other than the TutorsTime data store.<br /><br />
-        TutorsLive also uses this data to display of panel of students currently online. You can opt out of this feature from the TutorsLive
-        page.
+        You have been authenticated via your GitHub credentials and are about to enter a Tutors course. Tutors will record how much time each view is active and send this to the
+        TutorsTime data store. You can view this information via the TutorsTime feature on the course Navigator.<br /><br />
+        This data is available to you + the instructor of your course, but not to other students. No other data is gathered, nor is this data transmitted anywhere other than the TutorsTime
+        data store.<br /><br />
+        TutorsLive also uses this data to display of panel of students currently online. You can opt out of this feature from the TutorsLive page.
       </p>
       <p class="p-2">To learn more about these features please consult:</p>
       <ul class="ml-4 list-inside list-disc text-blue-600 underline visited:text-purple-600 hover:text-blue-800">
         <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://github.com/tutors-sdk/tutors-faqs/blob/main/tutors-time-faq.md">
-            Tutors Time FAQ
-          </a>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/tutors-sdk/tutors-faqs/blob/main/tutors-time-faq.md"> Tutors Time FAQ </a>
         </li>
         <li>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/tutors-sdk/tutors/blob/main/sites/tutors-time-reader/tutors-time-faq.md"
-            >Tutors Live FAQ
-          </a>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/tutors-sdk/tutors/blob/main/sites/tutors-time-reader/tutors-time-faq.md">Tutors Live FAQ </a>
         </li>
       </ul>
       <p class="p-2">
@@ -54,6 +45,6 @@
       </p>
       <p class="p-2">You will be asked to authenticate again in seven days time.</p>
     </div>
-    <button class="btn bg-primary-500 text-white" on:click={acceptAuthenticate}>Proceed to Course </button>
+    <button class="btn bg-primary-500 text-white" on:click="{acceptAuthenticate}">Proceed to Course </button>
   </div>
 </div>
