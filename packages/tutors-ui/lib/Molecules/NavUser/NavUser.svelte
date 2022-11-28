@@ -8,38 +8,25 @@
   import { menu, Avatar, Divider } from "@brainandbones/skeleton";
 
   let user: User;
-  let course: Course;
   let status = false;
   const timeApp = "https://time.tutors.dev";
   let timeUrl = "";
-  let liveUrl = "";
   let gitUrl = "";
 
   const metricsService: MetricsService = getContext("metrics");
 
-  function setTimeUrls(user: User) {
+  function setTimeUrls(user: User, course: Course) {
     timeUrl = `${timeApp}/#/time/${course?.url}?${user.id}`;
   }
 
-  currentCourse.subscribe((current) => {
-    if (current) {
-      course = current;
-      if (user && current) {
-        setTimeUrls(user);
-      }
-    }
-  });
-
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   currentUser.subscribe(async (newUser) => {
     user = newUser;
     gitUrl = `https://github.com/${user?.nickname}`;
-    if (user && newUser) {
-      setTimeUrls(user);
-    }
     let course = await $currentCourse;
+    if (user && course) {
+      setTimeUrls(user, course);
+    }
     if (course.authLevel > 0) {
-      // eslint-disable-next-line no-prototype-builtins
       if (user && !user.hasOwnProperty("onlineStatus")) {
         user.onlineStatus = "online";
       } else {
@@ -52,20 +39,6 @@
     status = !status;
     metricsService.setOnlineStatus(user, status);
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  currentUser.subscribe(async (newUser) => {
-    user = newUser;
-    let course = await $currentCourse;
-    if (course.authLevel > 0) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (user && !user.hasOwnProperty("onlineStatus")) {
-        user.onlineStatus = "online";
-      } else {
-        if (user) status = user.onlineStatus === "online";
-      }
-    }
-  });
 
   const onlineDrawerOpen: any = () => {
     onlineDrawer.set(true);
