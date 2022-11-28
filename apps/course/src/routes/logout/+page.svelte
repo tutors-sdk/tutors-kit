@@ -3,10 +3,10 @@
   import { clearLocalStorage, logout } from "tutors-reader-lib/src/utils/auth-utils";
   import { currentCourse, currentUser } from "tutors-reader-lib/src/stores/stores";
   onMount(() => {
-    currentUser.set(null);
-    currentCourse.set(null);
-    clearLocalStorage();
-    logout();
+    //currentUser.set(null);
+    // currentCourse.set(null);
+    //clearLocalStorage();
+    //logout();
   });
 </script>
 

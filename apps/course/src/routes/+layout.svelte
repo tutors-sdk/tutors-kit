@@ -10,7 +10,6 @@
   import CalendarBar from "$lib/navigators/sidebars/CalendarBar.svelte";
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
-
   import { infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentUser, currentCourse } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
   import { initFirebase } from "tutors-reader-lib/src/utils/firebase-utils";
@@ -26,10 +25,16 @@
     initFirebase(getKeys().firebase);
     authService.setCredentials(getKeys().auth0);
 
-    if ($currentCourse) {
-      authService.checkAuth($currentCourse);
-      if (isAuthenticated()) {
-        currentUser.set(fromLocalStorage());
+    if ($page.url.hash) {
+      const token = $page.url.hash.substring($page.url.hash.indexOf("#") + 1);
+      authService.handleAuthentication(token, goto);
+      authenticating = true;
+    } else {
+      if ($currentCourse) {
+        authService.checkAuth($currentCourse);
+        if (isAuthenticated()) {
+          currentUser.set(fromLocalStorage());
+        }
       }
     }
   });
@@ -43,13 +48,6 @@
   let authenticating = false;
   let transitionKey = "";
   page.subscribe((path) => {
-    const hash = path.url?.hash;
-    if (hash?.includes("access_token")) {
-      const token = hash.substring(hash.indexOf("#") + 1);
-      authService.setCredentials(getKeys().auth0);
-      authService.handleAuthentication(token, goto);
-      authenticating = true;
-    }
     transitionKey = path.url.pathname;
     if (transitionKey.includes("book")) {
       transitionKey = "book";
@@ -92,5 +90,7 @@
         </div>
       </svelte:fragment>
     </AppShell>
+  {:else}
+    <slot />
   {/if}
 </div>
