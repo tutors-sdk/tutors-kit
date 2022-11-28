@@ -32,9 +32,9 @@
 
     pdfDoc.getPage(num).then(function (page) {
       let viewport = page.getViewport({ scale: scale, rotation: rotation });
-      const canvasContext = canvas.getContext("2d");
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
+      const canvasContext = canvas?.getContext("2d");
+      canvas.height = viewport?.height;
+      canvas.width = viewport?.width;
 
       let renderContext = {
         canvasContext,
