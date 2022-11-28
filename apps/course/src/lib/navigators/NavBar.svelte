@@ -26,7 +26,7 @@
       <NavTitle />
     </div>
   </svelte:fragment>
-  {#if $currentCourse.currentWeek}
+  {#if $currentCourse?.currentWeek}
     <div class="hidden w-full lg:flex">
       <div class="mx-auto inline-flex rounded-lg bg-surface-200 p-2 dark:bg-surface-700">
         <div class="pr-4 pl-2">
@@ -44,7 +44,7 @@
   {/if}
   <svelte:fragment slot="trail">
     <div class="flex items-center space-x-1 lg:space-x-4">
-      {#if !$currentCourse.isPortfolio()}
+      {#if !$currentCourse?.isPortfolio()}
         <a class="btn btn-sm" href="/#/search/{$courseUrl}"
           ><Icon type="search" />
           <span class="hidden text-sm font-bold lg:block">Search</span>
