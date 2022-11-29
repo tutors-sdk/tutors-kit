@@ -11,7 +11,7 @@ export class MetricsService {
   users = new Map<string, UserMetric>();
   userRefresh = new Map<string, number>();
   allLabs: Lo[] = [];
-  courseBase = "";
+  courseId = "";
   metricUpdate: MetricUpdate | undefined;
   metricDelete: MetricDelete | undefined;
   statusChange: StatusChange | undefined;
@@ -19,7 +19,7 @@ export class MetricsService {
 
   setCourse(course: Course) {
     this.course = course;
-    this.courseBase = course.url.substr(0, course.url.indexOf("."));
+    this.courseId = course.url.substring(0, course.url.indexOf("."));
     this.allLabs = this.course.walls.get("lab");
     setInterval(this.sweepAndPurge.bind(this), 1000 * 120);
   }
@@ -173,7 +173,7 @@ export class MetricsService {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this;
     const db = getDatabase();
-    const statustRef = ref(db, `${this.courseBase}/users/${email}/onlineStatus`);
+    const statustRef = ref(db, `${this.courseId}/users/${email}/onlineStatus`);
     onValue(statustRef, (snapshot) => {
       that.userOnlineStatusChange(user, snapshot.val());
     });
@@ -184,7 +184,7 @@ export class MetricsService {
     const that = this;
     this.allLabs.forEach((lab) => {
       const labRoute = lab.route.split("topic");
-      const route = `${this.courseBase}/users/${email}/topic${labRoute[1]}`;
+      const route = `${this.courseId}/users/${email}/topic${labRoute[1]}`;
       const db = getDatabase();
       const labRef = ref(db, route);
       onValue(labRef, () => {
@@ -199,7 +199,7 @@ export class MetricsService {
     const topics = this.course.topics;
 
     topics.forEach((topic) => {
-      const route = `${this.courseBase}/users/${email}/${topic.lo.id}`;
+      const route = `${this.courseId}/users/${email}/${topic.lo.id}`;
       const db = getDatabase();
       const topicRef = ref(db, route);
       onValue(topicRef, (snapshot) => {
@@ -214,7 +214,7 @@ export class MetricsService {
   unsubscribeToUserLabs(user: User, email: string) {
     this.allLabs.forEach((lab) => {
       const labRoute = lab.route.split("topic");
-      const route = `${this.courseBase}/users/${email}/topic${labRoute[1]}`;
+      const route = `${this.courseId}/users/${email}/topic${labRoute[1]}`;
       const db = getDatabase();
       const labRoutesRef = ref(db, route);
       off(labRoutesRef);
@@ -224,7 +224,7 @@ export class MetricsService {
   unsubscribeToUserTopics(user: User, email: string) {
     const topics = this.course.topics;
     topics.forEach((topic) => {
-      const route = `${this.courseBase}/users/${email}/${topic.lo.id}`;
+      const route = `${this.courseId}/users/${email}/${topic.lo.id}`;
       const db = getDatabase();
       const topicRoutesRef = ref(db, route);
       off(topicRoutesRef);

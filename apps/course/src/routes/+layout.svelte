@@ -10,7 +10,7 @@
   import CalendarBar from "$lib/navigators/sidebars/CalendarBar.svelte";
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
-  import { infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentUser, currentCourse } from "tutors-reader-lib/src/stores/stores";
+  import { infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentUser, currentCourse, onlineDrawer } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
   import { initFirebase } from "tutors-reader-lib/src/utils/firebase-utils";
   import { getKeys } from "../environment";
@@ -19,6 +19,8 @@
   import { goto } from "$app/navigation";
   import TutorsTerms from "$lib/support/TutorsTerms.svelte";
   import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
+  import OnlineBar from "$lib/navigators/sidebars/OnlineBar.svelte";
+  import { startPresenceEngine } from "./presence-engine";
 
   let mounted = false;
   onMount(async () => {
@@ -27,6 +29,7 @@
 
     initFirebase(getKeys().firebase);
     authService.setCredentials(getKeys().auth0);
+    startPresenceEngine();
 
     if ($page.url.hash) {
       authenticating = true;
@@ -57,7 +60,7 @@
     if (transitionKey.includes("book") || transitionKey.includes("pdf") || transitionKey.includes("video")) {
       transitionKey = "none";
     }
-    if (mounted && path.params.courseid)  {
+    if (mounted && path.params.courseid) {
       analyticsService.learningEvent(path.params, path.data);
     }
   });
@@ -79,6 +82,9 @@
     </Drawer>
     <Drawer open="{tocDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
       <TocBar />
+    </Drawer>
+    <Drawer open="{onlineDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
+      <OnlineBar />
     </Drawer>
 
     <AppShell class="h-screen">

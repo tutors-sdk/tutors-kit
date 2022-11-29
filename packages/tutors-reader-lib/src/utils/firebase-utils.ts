@@ -16,7 +16,6 @@ export function sanitise(str): string {
   return str.replace(/[`#$.\[\]]/gi, "*");
 }
 
-
 export function updateLastAccess(key: string, title: string) {
   updateStr(`${key}/last`, new Date().toLocaleString());
   updateStr(`${key}/title`, title);
@@ -28,6 +27,13 @@ export function updateVisits(key: string) {
 
 export function updateCount(key: string) {
   updateCountValue(`${key}/count`);
+}
+
+export async function readValue(key: string): Promise<unknown> {
+  const db = getDatabase();
+  const dbRef = ref(db, key);
+  const snapShot = await get(child(dbRef, `key`));
+  return snapShot.val();
 }
 
 export function updateCountValue(key: string) {
@@ -134,12 +140,6 @@ export async function initFirebase(keys: FirebaseKeys) {
     initializeApp(keys);
     const auth = getAuth();
     await signInWithEmailAndPassword(auth, keys.tutorStoreId, keys.tutorStoreSecret);
-    // .then(() => {
-    //   console.log("Connected to TutorStore");
-    // })
-    // .catch((error: any) => {
-    //   console.log(`TutorStore Error: ${error.message}`);
-    // });
   }
 }
 

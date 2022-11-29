@@ -4,7 +4,7 @@
   import type { Course } from "tutors-reader-lib/src/models/course";
   import Icon from "../../Atoms/Icon/Icon.svelte";
   import { getContext } from "svelte";
-  import type { MetricsService } from "tutors-reader-lib/src/services/metrics-service";
+  import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
   import { menu, Avatar, Divider } from "@brainandbones/skeleton";
 
   let user: User;
@@ -12,8 +12,6 @@
   const timeApp = "https://time.tutors.dev";
   let timeUrl = "";
   let gitUrl = "";
-
-  const metricsService: MetricsService = getContext("metrics");
 
   function setTimeUrls(user: User, course: Course) {
     timeUrl = `${timeApp}/#/time/${course?.url}?${user.userId}`;
@@ -26,18 +24,19 @@
     if (user && course) {
       setTimeUrls(user, course);
     }
-    if ($currentCourse?.authLevel > 0) {
-      if (user && !user.hasOwnProperty("onlineStatus")) {
+    if ($currentCourse?.authLevel > 0 && user) {
+      const status = await analyticsService.getOnlineStatus();
+      if (status) {
         user.onlineStatus = "online";
       } else {
-        if (user) status = user.onlineStatus === "online";
+        user.onlineStatus === "offline";
       }
     }
   });
 
   function handleClick() {
     status = !status;
-    metricsService.setOnlineStatus(user, status);
+    analyticsService.setOnlineStatus(status);
   }
 
   const onlineDrawerOpen: any = () => {
