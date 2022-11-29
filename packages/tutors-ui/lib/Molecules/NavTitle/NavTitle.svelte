@@ -26,12 +26,7 @@
       {#if !wall}
         <Image lo="{lo}" miniImage="{true}" />
       {:else}
-        <Icon
-          icon="{getIcon(lo.type).icon}"
-          class="text-{getIcon(lo.type).colour}"
-          width="40"
-          height="40"
-        />
+        <Icon icon="{getIcon(lo.type).icon}" class="text-{getIcon(lo.type).colour}" width="40" height="40" />
       {/if}
     </div>
   </div>
@@ -39,10 +34,10 @@
     <h2 class="mr-4 hidden text-sm font-bold sm:text-lg md:inline-block">{$currentLo.title}</h2>
     <!-- Badge -->
     <div class="hidden md:block" target="_blank">
-      {#if $currentLo.title != $currentCourse.lo.title}
-        <p class="text-sm font-bold">{$currentCourse.lo.title}</p>
+      {#if $currentLo.title != $currentCourse?.lo.title}
+        <p class="text-sm font-bold">{$currentCourse?.lo.title}</p>
       {:else}
-        <p class="text-sm font-bold">{$currentCourse.lo.properties.credits}</p>
+        <p class="text-sm font-bold">{$currentCourse?.lo.properties?.credits}</p>
       {/if}
     </div>
   </div>

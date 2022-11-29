@@ -11,17 +11,23 @@ export function getNode(lotype: string, url: string, path: string): string {
   return node;
 }
 
-export function updateLastAccess(root: string, key: string, title: string) {
-  updateStr(`${root}/${key}/last`, new Date().toLocaleString());
-  updateStr(`${root}/${key}/title`, title);
+export function sanitise(str): string {
+  // eslint-disable-next-line no-useless-escape
+  return str.replace(/[`#$.\[\]]/gi, "*");
 }
 
-export function updateVisits(root: string, key: string) {
-  updateCountValue(`${root}/${key}/visits`);
+
+export function updateLastAccess(key: string, title: string) {
+  updateStr(`${key}/last`, new Date().toLocaleString());
+  updateStr(`${key}/title`, title);
 }
 
-export function updateCount(root: string, key: string) {
-  updateCountValue(`${root}/${key}/count`);
+export function updateVisits(key: string) {
+  updateCountValue(`${key}/visits`);
+}
+
+export function updateCount(key: string) {
+  updateCountValue(`${key}/count`);
 }
 
 export function updateCountValue(key: string) {

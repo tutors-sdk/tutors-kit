@@ -18,22 +18,26 @@
   import { authService } from "tutors-reader-lib/src/services/auth-service";
   import { goto } from "$app/navigation";
   import TutorsTerms from "$lib/support/TutorsTerms.svelte";
+  import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
 
+  let mounted = false;
   onMount(async () => {
+    mounted = true;
     storeTheme.subscribe(setBodyThemeAttribute);
 
     initFirebase(getKeys().firebase);
     authService.setCredentials(getKeys().auth0);
 
     if ($page.url.hash) {
+      authenticating = true;
       const token = $page.url.hash.substring($page.url.hash.indexOf("#") + 1);
       authService.handleAuthentication(token, goto);
-      authenticating = true;
     } else {
       if ($currentCourse) {
         authService.checkAuth($currentCourse);
         if (isAuthenticated()) {
-          currentUser.set(fromLocalStorage());
+          const user = fromLocalStorage();
+          currentUser.set(user);
         }
       }
     }
@@ -47,10 +51,14 @@
 
   let authenticating = false;
   let transitionKey = "";
+
   page.subscribe((path) => {
     transitionKey = path.url.pathname;
-    if (transitionKey.includes("book")) {
-      transitionKey = "book";
+    if (transitionKey.includes("book") || transitionKey.includes("pdf") || transitionKey.includes("video")) {
+      transitionKey = "none";
+    }
+    if (mounted && path.params.courseid)  {
+      analyticsService.learningEvent(path.params, path.data);
     }
   });
 </script>

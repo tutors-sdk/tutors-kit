@@ -1,119 +1,88 @@
-import { isValidCourseName, updateLo } from "../utils/course-utils";
+import { updateLo } from "../utils/course-utils";
 import type { Lo } from "../types/lo-types";
 import type { Course } from "../models/course";
 import type { User } from "../types/auth-types";
-import { authService } from "./auth-service";
-import { currentCourse } from "../stores/stores";
+import { currentCourse, currentUser } from "../stores/stores";
 
-import { getNode, updateCalendar, updateCount, updateCountValue, updateLastAccess, updateStr, updateVisits } from "tutors-reader-lib/src/utils/firebase-utils";
+import { sanitise, updateCalendar, updateCount, updateCountValue, updateLastAccess, updateStr, updateVisits } from "tutors-reader-lib/src/utils/firebase-utils";
 
 let course: Course;
-let currentRoute = "";
-let currentLo: Lo;
+let user: User;
 
 currentCourse.subscribe((current) => {
-  if (current) course = current;
+  course = current;
+});
+currentUser.subscribe((current) => {
+  user = current;
 });
 
 let mins = 0;
 const func = () => {
   mins = mins + 0.5;
   if (course && !document.hidden) {
-    analyticsService.reportPageCount(currentRoute, course, currentLo);
+    analyticsService.updatePageCount();
   }
 };
 setInterval(func, 30 * 1000);
 
 export const analyticsService = {
-  courseBaseName: "",
-  userEmail: "",
-  userEmailSanitised: "",
-  userId: "",
-  firebaseIdRoot: "",
-  firebaseEmailRoot: "",
-  url: "",
+  courseId: "",
+  courseUrl: "",
+  loRoute: "",
+  lo: <Lo>{},
 
-  setOnlineStatus(course: Course, status: boolean) {
-    authService.checkAuth(course);
-    this.firebaseEmailRoot = `${this.courseBaseName}/users/${this.userEmailSanitised}`;
+  learningEvent(params: Record<string, string>, data: Record<string, string>) {
+    this.courseUrl = params.courseid;
+    this.courseId = params.courseid.substring(0, params.courseid.indexOf("."));
+    this.loRoute = "";
+    if (params.loid) this.loRoute = sanitise(params.loid);
+    this.lo = data.lo;
+    this.reportPageLoad();
+  },
+
+  setOnlineStatus(status: boolean) {
+    const key = `${this.courseId}/users/${sanitise(user.email)}`;
     if (status) {
-      updateStr(`${this.firebaseEmailRoot}/onlineStatus`, "online");
+      updateStr(key, "online");
     } else {
-      updateStr(`${this.firebaseEmailRoot}/onlineStatus`, "offline");
+      updateStr(key, "offline");
     }
   },
 
-  pageLoad(route: string, lo: Lo) {
-    currentRoute = route;
-    currentLo = lo;
-    if (course.authLevel > 0 && lo.type != "course") {
-      authService.checkAuth(course);
-    }
-    this.reportPageLoad(route, course, lo);
-  },
+  reportPageLoad() {
+    updateLastAccess(`${this.courseId}/usage/${this.loRoute}`, this.lo.title);
+    updateVisits(this.courseId);
 
-  initRoot(url: string) {
-    this.url = url;
-    this.courseBaseName = url.substr(0, url.indexOf("."));
-    this.firebaseIdRoot = `${this.courseBaseName}/usage`;
-  },
+    updateLastAccess(`all-course-access/${this.courseId}`, this.lo.title);
+    updateVisits(`all-course-access/${this.courseId}`);
+    updateLo(`all-course-access/${this.courseId}`, course, this.lo);
 
-  reportLogin(user: User, url: string) {
-    if (!isValidCourseName(this.courseBaseName)) return;
-
-    if (this.userEmail !== user.email || this.url !== url) {
-      this.initRoot(url);
-      this.userEmail = user.email;
-      this.userId = user.userId;
-      // eslint-disable-next-line no-useless-escape
-      this.userEmailSanitised = user.email.replace(/[`#$.\[\]\/]/gi, "*");
-      this.firebaseEmailRoot = `${this.courseBaseName}/users/${this.userEmailSanitised}`;
-      this.updateLogin(user);
+    if (user) {
+      const key = `${this.courseId}/users/${sanitise(user.email)}`;
+      updateLastAccess(key, this.lo.title);
+      updateVisits(key);
     }
   },
 
-  reportPageLoad(path: string, course: Course, lo: Lo) {
-    if (!isValidCourseName(this.courseBaseName)) return;
-    if (!lo) return;
-
-    this.initRoot(course.url);
-    const node = getNode(lo.type, course.url, path);
-    updateLastAccess(this.firebaseIdRoot, node, lo.title);
-    updateVisits(this.firebaseIdRoot, node);
-
-    updateLastAccess(`all-course-access/${this.courseBaseName}`, "", lo.title);
-    updateVisits(`all-course-access/${this.courseBaseName}`, "");
-    updateLo(`all-course-access/${this.courseBaseName}`, course, lo);
-
-    if (this.userEmail) {
-      this.firebaseEmailRoot = `${this.courseBaseName}/users/${this.userEmailSanitised}`;
-      updateLastAccess(this.firebaseEmailRoot, node, lo.title);
-      updateVisits(this.firebaseEmailRoot, node);
-    }
-  },
-
-  reportPageCount(path: string, course: Course, lo: Lo) {
-    if (!isValidCourseName(this.courseBaseName)) return;
-    if (!lo) return;
-
-    this.initRoot(course.url);
-    const node = getNode(lo.type, course.url, path);
-    updateLastAccess(this.firebaseIdRoot, node, lo.title);
-    updateCount(this.firebaseIdRoot, node);
-    if (this.userEmail) {
-      updateLastAccess(this.firebaseEmailRoot, node, lo.title);
-      updateCount(this.firebaseEmailRoot, node);
-      updateCalendar(this.firebaseEmailRoot);
+  updatePageCount() {
+    updateLastAccess(`${this.courseId}/usage/${this.loRoute}`, this.lo.title);
+    updateCount(this.courseId);
+    if (user) {
+      const key = `${this.courseId}/users/${sanitise(user.email)}`;
+      updateLastAccess(key, this.lo.title);
+      updateCount(key);
+      updateCalendar(key);
     }
   },
 
   updateLogin(user: User) {
-    updateStr(`${this.firebaseEmailRoot}/email`, user.email);
-    updateStr(`${this.firebaseEmailRoot}/name`, user.name);
-    updateStr(`${this.firebaseEmailRoot}/id`, user.userId);
-    updateStr(`${this.firebaseEmailRoot}/nickname`, user.nickname);
-    updateStr(`${this.firebaseEmailRoot}/picture`, user.picture);
-    updateStr(`${this.firebaseEmailRoot}/last`, new Date().toString());
-    updateCountValue(`${this.firebaseEmailRoot}/count`);
+    const key = `${this.courseId}/users/${sanitise(user.email)}`;
+    updateStr(`${key}/email`, user.email);
+    updateStr(`${key}/name`, user.name);
+    updateStr(`${key}/id`, user.userId);
+    updateStr(`${key}/nickname`, user.nickname);
+    updateStr(`${key}/picture`, user.picture);
+    updateStr(`${key}/last`, new Date().toString());
+    updateCountValue(`${key}/count`);
   }
 };

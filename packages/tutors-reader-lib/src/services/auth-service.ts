@@ -1,4 +1,4 @@
-import { analyticsService } from "./analytics-service";
+import { currentUser } from "./../stores/stores";
 import { WebAuth } from "auth0-js";
 import type { Course } from "../models/course";
 import { encrypt, fromLocalStorage, isAuthenticated, setSession, toLocalStorage } from "../utils/auth-utils";
@@ -26,7 +26,7 @@ export const authService = {
         this.login(this.auth0);
       } else {
         const user = fromLocalStorage();
-        analyticsService.reportLogin(user, course.url);
+        currentUser.set(user);
       }
     }
     return status;
@@ -44,7 +44,7 @@ export const authService = {
         toLocalStorage(user);
         const url = localStorage.getItem("course_url");
         user.userId = encrypt(user.email);
-        //analytics.reportLogin(user, url);
+        //currentUser.set(user);
         setSession(authResult);
         router(`/course/${url}`);
       });

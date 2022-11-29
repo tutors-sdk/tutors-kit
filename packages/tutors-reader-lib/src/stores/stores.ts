@@ -1,8 +1,9 @@
 import { writable, type Writable } from "svelte/store";
-import type { Lo, WeekType } from "tutors-reader-lib/src/types/lo-types";
-import type { StudentMetric, User } from "tutors-reader-lib/src/types/metrics-types";
+import type { Lo, WeekType } from "../types/lo-types";
+import type { StudentMetric } from "../types/metrics-types";
+import type { User } from "../types/auth-types";
 import { localStorageStore } from "@brainandbones/skeleton";
-import type { Course } from "src/models/course";
+import type { Course } from "../models/course";
 
 const weekType: WeekType = {
   title: "",
@@ -18,7 +19,7 @@ export const week = writable(weekType);
 export const courseUrl = writable("");
 export const currentCourse: Writable<Course> = writable(null);
 export const currentLo: Writable<Lo> = writable(null);
-export const currentUser: Writable<any> = writable(null);
+export const currentUser: Writable<User> = writable(null);
 export const portfolio = writable(false);
 export const layout = writable("");
 export const studentsOnline = writable(0);

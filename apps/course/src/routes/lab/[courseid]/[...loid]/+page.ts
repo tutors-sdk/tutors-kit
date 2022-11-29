@@ -13,6 +13,7 @@ export const load: PageLoad = async ({ url, params }) => {
     lab.setActivePage(lastSegment);
   }
   return {
-    lab: lab
+    lab: lab,
+    lo: lab.lo
   };
 };

@@ -7,6 +7,7 @@ export const load: PageLoad = async ({ params }) => {
   const course: Course = await courseService.readCourse(params.courseid);
   currentLo.set(course.lo);
   return {
-    course: course
+    course: course,
+    lo: course.lo
   };
 };
