@@ -6,7 +6,7 @@
   export let lo: Lo;
   let contentHtml = "";
   const url = lo.route.replace("/#/note/", "");
-  contentHtml = convertMd(lo.contentMd, url);
+  contentHtml = convertMd(lo.contentMd, url.replace("/note/", ""));
   contentHtml = generateToc(contentHtml);
 </script>
 
