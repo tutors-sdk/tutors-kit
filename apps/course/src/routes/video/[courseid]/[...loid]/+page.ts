@@ -7,6 +7,8 @@ export const load: PageLoad = async ({ url, params }) => {
   if (videoStartEnd.endsWith("=")) {
     videoStartEnd = videoStartEnd.slice(0, -1);
     videoId = `${url.pathname}?${videoStartEnd}`;
+  } else {
+    videoId = `${url.pathname}?${videoStartEnd}`;
   }
   const lo = await courseService.readLo(params.courseid, videoId);
   return {
