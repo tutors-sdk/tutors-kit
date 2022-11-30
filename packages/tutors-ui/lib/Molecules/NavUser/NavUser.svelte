@@ -8,16 +8,16 @@
 
   let user: User;
   let status = false;
-  const timeApp = "https://time.tutors.dev";
+  const timeApp = "https://tutors-time-kit.netlify.app";
   let timeUrl = "";
   let gitUrl = "";
 
   function setTimeUrls(user: User, course: Course) {
-    timeUrl = `${timeApp}/#/time/${course?.url}?${user.userId}`;
+    timeUrl = `${timeApp}/time/${course?.url}/${user.userId}`;
   }
 
   currentUser.subscribe(async (newUser: User) => {
-    if (user) {
+    if (newUser) {
       user = newUser;
       gitUrl = `https://github.com/${user?.nickname}`;
       let course = await $currentCourse;
