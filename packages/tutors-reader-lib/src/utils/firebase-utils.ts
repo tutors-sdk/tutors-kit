@@ -29,10 +29,9 @@ export function updateCount(key: string) {
   updateCountValue(`${key}/count`);
 }
 
-export async function readValue(key: string): Promise<unknown> {
-  const db = getDatabase();
-  const dbRef = ref(db, key);
-  const snapShot = await get(child(dbRef, `key`));
+export async function readValue(key: string): Promise<string> {
+  const dbRef = ref(getDatabase());
+  const snapShot = await get(child(dbRef, key));
   return snapShot.val();
 }
 

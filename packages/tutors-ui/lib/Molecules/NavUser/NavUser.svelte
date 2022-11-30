@@ -1,9 +1,8 @@
 <script lang="ts">
   import { currentCourse, currentUser, studentsOnline, onlineDrawer } from "tutors-reader-lib/src/stores/stores";
-  import type { User } from "tutors-reader-lib/src/types/metrics-types";
+  import type { User } from "tutors-reader-lib/src/types/auth-types";
   import type { Course } from "tutors-reader-lib/src/models/course";
   import Icon from "../../Atoms/Icon/Icon.svelte";
-  import { getContext } from "svelte";
   import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
   import { menu, Avatar, Divider } from "@brainandbones/skeleton";
 
@@ -17,19 +16,14 @@
     timeUrl = `${timeApp}/#/time/${course?.url}?${user.userId}`;
   }
 
-  currentUser.subscribe(async (newUser) => {
-    user = newUser;
-    gitUrl = `https://github.com/${user?.nickname}`;
-    let course = await $currentCourse;
-    if (user && course) {
-      setTimeUrls(user, course);
-    }
-    if ($currentCourse?.authLevel > 0 && user) {
-      const status = await analyticsService.getOnlineStatus();
-      if (status) {
-        user.onlineStatus = "online";
-      } else {
-        user.onlineStatus === "offline";
+  currentUser.subscribe(async (newUser: User) => {
+    if (user) {
+      user = newUser;
+      gitUrl = `https://github.com/${user?.nickname}`;
+      let course = await $currentCourse;
+      if (user && course) {
+        setTimeUrls(user, course);
+        status = user.onlineStatus === "online";
       }
     }
   });

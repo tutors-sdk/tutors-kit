@@ -1,9 +1,3 @@
-<script lang="ts">
-  import TutorsTerms from "$lib/support/TutorsTerms.svelte";
-  import Blank from "$lib/support/Blank.svelte";
-  import { authenticating } from "tutors-reader-lib/src/stores/stores";
-</script>
-
-<!-- {#if $authenticating} -->
-<TutorsTerms />
-<!-- {/if} -->
+<div class="flex min-h-screen items-center justify-center overflow-auto bg-surface-600">
+  
+</div>

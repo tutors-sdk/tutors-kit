@@ -16,7 +16,7 @@ export interface User {
   picture: string;
   name: string;
   nickname: string;
-  onlineStatus: string;
+  onlineStatus: boolean;
 }
 
 export interface DayMeasure {

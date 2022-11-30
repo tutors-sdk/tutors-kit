@@ -47,6 +47,7 @@ export const analyticsService = {
   },
 
   setOnlineStatus(status: boolean) {
+    if (!user) return false;
     const key = `${this.courseId}/users/${sanitise(user.email)}/onlineStatus`;
     if (status) {
       updateStr(key, "online");
@@ -55,12 +56,15 @@ export const analyticsService = {
     }
   },
 
-  async getOnlineStatus(): Promise<boolean> {
-    if (!user) return false;
-    const key = `${this.courseId}/users/${sanitise(user.email)}/onlineStatus`;
-    const val = await readValue(key);
-    console.log(val);
-    return true;
+  async getOnlineStatus(course: Course, user: User): Promise<string> {
+    let status = "online";
+    if (course && user) {
+      this.user = user;
+      this.courseId = course.url.substring(0, course.url.indexOf("."));
+      const key = `${this.courseId}/users/${sanitise(user.email)}/onlineStatus`;
+      status = await readValue(key);
+    }
+    return status;
   },
 
   reportPageLoad() {

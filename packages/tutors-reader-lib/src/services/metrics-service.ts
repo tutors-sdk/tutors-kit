@@ -147,18 +147,18 @@ export class MetricsService {
     }
   }
 
-  setOnlineStatus(user: User, status: boolean) {
-    // eslint-disable-next-line no-useless-escape
-    const userEmailSanitised = user.email.replace(/[`#$.\[\]\/]/gi, "*");
-    const firebaseEmailRoot = `${this.courseBase}/users/${userEmailSanitised}`;
-    if (status) {
-      updateStr(`${firebaseEmailRoot}/onlineStatus`, "online");
-      user.onlineStatus = "online";
-    } else {
-      user.onlineStatus = "offline";
-      updateStr(`${firebaseEmailRoot}/onlineStatus`, "offline");
-    }
-  }
+  // setOnlineStatus(user: User, status: boolean) {
+  //   // eslint-disable-next-line no-useless-escape
+  //   const userEmailSanitised = user.email.replace(/[`#$.\[\]\/]/gi, "*");
+  //   const firebaseEmailRoot = `${this.courseId}/users/${userEmailSanitised}`;
+  //   if (status) {
+  //     updateStr(`${firebaseEmailRoot}/onlineStatus`, "online");
+  //     user.onlineStatus = "online";
+  //   } else {
+  //     user.onlineStatus = "offline";
+  //     updateStr(`${firebaseEmailRoot}/onlineStatus`, "offline");
+  //   }
+  // }
 
   stopService() {
     this.users.forEach((user) => {

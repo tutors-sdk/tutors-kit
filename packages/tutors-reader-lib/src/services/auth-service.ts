@@ -1,3 +1,4 @@
+import { analyticsService } from "./analytics-service";
 import { currentUser } from "./../stores/stores";
 import { WebAuth } from "auth0-js";
 import type { Course } from "../models/course";
@@ -17,7 +18,13 @@ export const authService = {
     });
   },
 
-  checkAuth(course: Course) {
+  async loadUser(course: Course) {
+    const user = fromLocalStorage();
+    user.onlineStatus = await analyticsService.getOnlineStatus(course, user);
+    currentUser.set(user);
+  },
+
+  async checkAuth(course: Course) {
     let status = true;
     if (course.authLevel > 0) {
       if (!isAuthenticated()) {
@@ -25,8 +32,7 @@ export const authService = {
         localStorage.setItem("course_url", course.url);
         this.login(this.auth0);
       } else {
-        const user = fromLocalStorage();
-        currentUser.set(user);
+        this.loadUser(course);
       }
     }
     return status;
