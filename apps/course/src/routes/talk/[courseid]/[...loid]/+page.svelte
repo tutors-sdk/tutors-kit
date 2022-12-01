@@ -7,7 +7,7 @@
 </script>
 
 {#if data.lo}
-  <div class="min-h-screen flex w-11/12 mx-auto">
+  <div class="flex w-11/12 mx-auto">
     <div class="w-full">
       {#key data.lo}
         <TalkCard lo="{data.lo}" />
