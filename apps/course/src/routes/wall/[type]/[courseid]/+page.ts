@@ -17,6 +17,7 @@ export const load: PageLoad = async ({ params }) => {
   });
   return {
     type: params.type,
+    lo: course.lo,
     los: los,
     panelVideos: los.filter((lo) => lo.type === "panelvideo"),
     talkVideos: los.filter((lo) => lo.type !== "panelvideo")
