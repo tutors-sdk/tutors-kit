@@ -50,7 +50,6 @@ export const authService = {
         toLocalStorage(user);
         const url = localStorage.getItem("course_url");
         user.userId = encrypt(user.email);
-        //currentUser.set(user);
         setSession(authResult);
         router(`/course/${url}`);
       });

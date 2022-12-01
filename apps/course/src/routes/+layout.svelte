@@ -32,7 +32,6 @@
     startPresenceEngine();
 
     if ($page.url.hash) {
-      console.log($page.url.hash);
       if ($page.url.hash.startsWith("#/course")) {
         goto($page.url.hash.slice(2));
       } else {
