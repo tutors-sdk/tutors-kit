@@ -70,7 +70,7 @@
     <Drawer open="{onlineDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
       <OnlineBar />
     </Drawer>
-    <AppShell>
+    <AppShell class="h-screen">
       <svelte:fragment slot="header">
         <NavBar />
         <PageHeader />
