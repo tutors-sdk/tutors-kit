@@ -32,9 +32,14 @@
     startPresenceEngine();
 
     if ($page.url.hash) {
-      authenticating = true;
-      const token = $page.url.hash.substring($page.url.hash.indexOf("#") + 1);
-      authService.handleAuthentication(token, goto);
+      console.log($page.url.hash);
+      if ($page.url.hash.startsWith("#/course")) {
+        goto($page.url.hash.slice(2));
+      } else {
+        authenticating = true;
+        const token = $page.url.hash.substring($page.url.hash.indexOf("#") + 1);
+        authService.handleAuthentication(token, goto);
+      }
     } else {
       if ($currentCourse) {
         await authService.checkAuth($currentCourse);
