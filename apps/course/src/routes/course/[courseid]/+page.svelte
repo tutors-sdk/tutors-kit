@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
   import type { PageData } from "./$types";
   import { CardDeck, UnitCard } from "tutors-ui";
   import { authService } from "tutors-reader-lib/src/services/auth-service";
@@ -10,9 +9,11 @@
   let standardDeck = true;
 
   onMount(async () => {
-    initFirebase(getKeys().firebase);
-    authService.setCredentials(getKeys().auth0);
-    authService.checkAuth(data.course);
+    if (getKeys().firebase.apiKey !== "XXX") {
+      initFirebase(getKeys().firebase);
+      authService.setCredentials(getKeys().auth0);
+      authService.checkAuth(data.course);
+    }
   });
 </script>
 

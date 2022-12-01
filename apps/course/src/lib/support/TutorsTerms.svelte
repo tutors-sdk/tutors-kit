@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let authenticating = false;
+  import { authenticating } from "tutors-reader-lib/src/stores/stores";
 
   function acceptAuthenticate() {
-    authenticating = false;
+    authenticating.set(false);
   }
 </script>
 

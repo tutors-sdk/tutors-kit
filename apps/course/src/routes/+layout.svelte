@@ -11,56 +11,29 @@
   import CalendarBar from "$lib/navigators/sidebars/CalendarBar.svelte";
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
-  import { infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentCourse, onlineDrawer } from "tutors-reader-lib/src/stores/stores";
+  import { authenticating, transitionKey, infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentCourse, onlineDrawer, currentLo } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
-  import { initFirebase } from "tutors-reader-lib/src/utils/firebase-utils";
   import { getKeys } from "../environment";
-  import { authService } from "tutors-reader-lib/src/services/auth-service";
-  import { goto } from "$app/navigation";
   import TutorsTerms from "$lib/support/TutorsTerms.svelte";
   import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
   import OnlineBar from "$lib/navigators/sidebars/OnlineBar.svelte";
-  import { startPresenceEngine } from "./presence-engine";
+  import { initServices } from "./tutors-startup";
 
   let mounted = false;
+  const themes: any = { tutors };
+
   onMount(async () => {
     mounted = true;
     storeTheme.subscribe(setBodyThemeAttribute);
-
-    initFirebase(getKeys().firebase);
-    authService.setCredentials(getKeys().auth0);
-    startPresenceEngine();
-
-    if ($page.url.hash) {
-      if ($page.url.hash.startsWith("#/course")) {
-        goto($page.url.hash.slice(2));
-      } else {
-        authenticating = true;
-        const token = $page.url.hash.substring($page.url.hash.indexOf("#") + 1);
-        authService.handleAuthentication(token, goto);
-      }
-    } else {
-      if ($currentCourse) {
-        await authService.checkAuth($currentCourse);
-      }
-    }
+    initServices();
   });
-
-  const themes: any = { tutors };
 
   function setBodyThemeAttribute(): void {
     document.body.setAttribute("data-theme", $storeTheme);
   }
 
-  let authenticating = false;
-  let transitionKey = "";
-
   page.subscribe((path) => {
-    transitionKey = path.url.pathname;
-    if (transitionKey.includes("book") || transitionKey.includes("pdf") || transitionKey.includes("video")) {
-      transitionKey = "none";
-    }
-    if (mounted && path.params.courseid) {
+    if (mounted && path.params.courseid && getKeys().firebase.apiKey !== "XXX") {
       analyticsService.learningEvent(path.params, path.data);
     }
   });
@@ -68,11 +41,12 @@
 
 <svelte:head>
   {@html `\<style\>${themes[$storeTheme]}}\</style\>`}
+  <title>{$currentLo?.title}</title>
 </svelte:head>
 
 <div id="app" class="h-full overflow-hidden">
-  {#if authenticating}
-    <TutorsTerms bind:authenticating="{authenticating}" />
+  {#if $authenticating}
+    <TutorsTerms />
   {:else if $currentCourse}
     <Drawer open="{infoDrawer}" position="left" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
       <InfoBar />
@@ -93,7 +67,7 @@
       </svelte:fragment>
       <div id="top"></div>
       <div class="mx-auto my-4">
-        <PageTransition url="{transitionKey}">
+        <PageTransition url="{$transitionKey}">
           <slot />
         </PageTransition>
       </div>
