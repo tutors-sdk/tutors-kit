@@ -45,7 +45,7 @@
 <div class="my-2 mx-8 overflow-hidden p-1">
   <Breadcrumb text="text-xs" separator=" ">
     {#if $currentCourse?.lo.properties?.parent != null}
-      <Crumb href="#/{$currentCourse.lo.properties?.parent}" class="!space-x-[-1rem] lg:!space-x-0">
+      <Crumb href="/{$currentCourse.lo.properties?.parent}" class="!space-x-[-1rem] lg:!space-x-0">
         <svelte:fragment slot="lead"><Icon type="programHome" /></svelte:fragment>
       </Crumb>
     {/if}
