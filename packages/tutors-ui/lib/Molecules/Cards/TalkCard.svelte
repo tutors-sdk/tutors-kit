@@ -33,33 +33,35 @@
     pdfDoc.getPage(num).then(function (page) {
       let viewport = page.getViewport({ scale: scale, rotation: rotation });
       const canvasContext = canvas?.getContext("2d");
-      canvas.height = viewport?.height;
-      canvas.width = viewport?.width;
+      if (canvas) {
+        canvas.height = viewport?.height;
+        canvas.width = viewport?.width;
 
-      let renderContext = {
-        canvasContext,
-        viewport
-      };
-      let renderTask = page.render(renderContext);
+        let renderContext = {
+          canvasContext,
+          viewport
+        };
+        let renderTask = page.render(renderContext);
 
-      // Wait for rendering to finish
-      renderTask.promise.then(function () {
-        pageRendering = false;
-        if (pageNumPending !== null) {
-          // New page rendering is pending
-          // renderPage(pageNumPending);
-          if (pageNum < pdfDoc.totalPage) {
-            pages[pageNum] = canvas;
-            pageNum++;
-            pdfDoc.getPage(pageNum).then(renderPage);
-          } else {
-            for (let i = 1; i < pages.length; i++) {
-              canvas.appendChild(pages[i]);
+        // Wait for rendering to finish
+        renderTask.promise.then(function () {
+          pageRendering = false;
+          if (pageNumPending !== null) {
+            // New page rendering is pending
+            // renderPage(pageNumPending);
+            if (pageNum < pdfDoc.totalPage) {
+              pages[pageNum] = canvas;
+              pageNum++;
+              pdfDoc.getPage(pageNum).then(renderPage);
+            } else {
+              for (let i = 1; i < pages.length; i++) {
+                canvas.appendChild(pages[i]);
+              }
             }
+            pageNumPending = null;
           }
-          pageNumPending = null;
-        }
-      });
+        });
+      }
     });
   };
 
@@ -151,7 +153,7 @@
           <Icon type="download" />
         </button>
         <button class="btn btn-sm">
-          <Icon link="{lo.pdf}" type="fullScreen" target="_blank" rel="noreferrer" />
+          <Icon link="{lo.pdf}" type="fullScreen" target="_blank" />
         </button>
       </div>
     </div>
