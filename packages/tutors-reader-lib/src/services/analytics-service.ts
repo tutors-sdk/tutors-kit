@@ -36,7 +36,9 @@ export const analyticsService = {
     this.courseUrl = params.courseid;
     this.courseId = params.courseid.substring(0, params.courseid.indexOf("."));
     this.loRoute = "";
-    if (params.loid) this.loRoute = sanitise(params.loid);
+    if (params.loid) {
+      this.loRoute = sanitise(params.loid);
+    }
     this.lo = data.lo;
     if (this.lo) {
       this.title = this.lo.title;
