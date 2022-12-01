@@ -1,12 +1,13 @@
 import { page } from "$app/stores";
 import { authService } from "tutors-reader-lib/src/services/auth-service";
 import { get } from "svelte/store";
-import { transitionKey, currentCourse, studentsOnline, studentsOnlineList, authenticating } from "tutors-reader-lib/src/stores/stores";
+import { transitionKey, currentCourse, currentUser, studentsOnline, studentsOnlineList, authenticating } from "tutors-reader-lib/src/stores/stores";
 import type { Course } from "tutors-reader-lib/src/models/course";
 import type { StudentMetric } from "tutors-reader-lib/src/types/metrics-types";
 import { MetricsService } from "tutors-reader-lib/src/services/metrics-service";
 import { PresenceService } from "tutors-reader-lib/src/services/presence-service";
 import { isAuthenticated } from "tutors-reader-lib/src/utils/auth-utils";
+import type { User } from "tutors-reader-lib/src/types/auth-types";
 import { initFirebase } from "tutors-reader-lib/src/utils/firebase-utils";
 import { getKeys } from "../environment";
 import { goto } from "$app/navigation";
@@ -15,6 +16,7 @@ const students: StudentMetric[] = [];
 let metricsService: MetricsService;
 let presenceService: PresenceService;
 let lastCourse: Course;
+let user: User;
 
 export async function initServices() {
   initFirebase(getKeys().firebase);
@@ -82,5 +84,8 @@ export function startPresenceEngine() {
         initService(newCourse);
       }
     }
+  });
+  currentUser.subscribe((newUser: User) => {
+    user = newUser;
   });
 }
