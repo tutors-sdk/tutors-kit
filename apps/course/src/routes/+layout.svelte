@@ -11,6 +11,7 @@
   import CalendarBar from "$lib/navigators/sidebars/CalendarBar.svelte";
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
+  import dyslexia from "tutors-ui/lib/themes/dyslexia.css";
   import { authenticating, transitionKey, infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentCourse, onlineDrawer, currentLo } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
   import { getKeys } from "../environment";
@@ -20,7 +21,7 @@
   import { initServices } from "./tutors-startup";
 
   let mounted = false;
-  const themes: any = { tutors };
+  const themes: any = { tutors, dyslexia };
 
   onMount(async () => {
     mounted = true;
@@ -44,7 +45,7 @@
   <title>{$currentLo?.title}</title>
 </svelte:head>
 
-<div id="app" class="h-full overflow-hidden">
+<div id="app">
   {#if $authenticating}
     <TutorsTerms />
   {:else if $currentCourse}
@@ -60,7 +61,7 @@
     <Drawer open="{onlineDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
       <OnlineBar />
     </Drawer>
-    <AppShell class="h-screen">
+    <AppShell>
       <svelte:fragment slot="header">
         <NavBar />
         <PageHeader />
