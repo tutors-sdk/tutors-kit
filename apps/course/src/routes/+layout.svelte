@@ -3,6 +3,7 @@
   import "@brainandbones/skeleton/styles/all.css";
   import { AppShell, Drawer } from "@brainandbones/skeleton";
   import { onMount } from "svelte";
+	import { afterNavigate } from '$app/navigation';
   import Blank from "$lib/support/Blank.svelte";
   import NavBar from "$lib/navigators/NavBar.svelte";
   import PageHeader from "$lib/navigators/PageHeader.svelte";
@@ -29,6 +30,14 @@
     initServices();
   });
 
+  afterNavigate((params: any) => {
+		const isNewPage: boolean = params.from && params.to && params.from.route.id !== params.to.route.id;
+		const elemPage = document.querySelector('#page');
+		if (isNewPage && elemPage !== null) {
+			elemPage.scrollTop = 0;
+		}
+	});
+
   function setBodyThemeAttribute(): void {
     document.body.setAttribute("data-theme", $storeTheme);
   }
@@ -45,7 +54,7 @@
   <title>{$currentLo?.title}</title>
 </svelte:head>
 
-<div id="app">
+<div id="app" class="h-full overflow-hidden">
   {#if $authenticating}
     <TutorsTerms />
   {:else if $currentCourse}
