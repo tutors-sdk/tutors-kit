@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "Tutors-Json",
+      "program": "${workspaceFolder}//cli/tutors-json/src/tutors-json.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "cwd": "${workspaceFolder}/test/reference-course"
+    },
+    {
+      "name": "Tutors-Html",
+      "program": "${workspaceFolder}//cli/tutors-html/src/tutors-html.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "cwd": "${workspaceFolder}/test/reference-course"
+    },
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Tutors-Course-Reader",
+      "port": 9222,
+      "urlFilter": "http://localhost:3001/*",
+      "webRoot": "${workspaceFolder}/apps/course"
+    },
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Tutors-Time-Reader",
+      "port": 9222,
+      "urlFilter": "http://localhost:3001/*",
+      "webRoot": "${workspaceFolder}/apps/timer"
+    }
+  ]
+}
+
+/* /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 */
