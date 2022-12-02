@@ -1,5 +1,23 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+
+# generated files from ts sources in specific ts only modules
+**/cli/tutors-html/src/**/*.js
+**/cli/tutors-html/src/**/*.js.map
+**/cli/tutors-html/src/**/*.d.ts
+**/cli/tutors-json/src/**/*.js
+**/cli/tutors-json/src/**/*.js.map
+**/cli/tutors-json/src/**/*.d.ts
+**/packages/tutors-lib/src/**/*.js
+**/packages/tutors-lib/src/**/*.js.map
+**/packages/tutors-lib/src/**/*.d.ts
+**/test/reference-course/json
+**/test/reference-course/public-site
+
+# exclude ts build info caches
+**/tsconfig.tsbuildinfo
+
+
 # dependencies
 node_modules
 .pnp
