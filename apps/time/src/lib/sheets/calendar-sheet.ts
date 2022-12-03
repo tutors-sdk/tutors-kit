@@ -20,7 +20,7 @@ export const options = {
   headerHeight: 120,
   defaultColDef: {
     sortable: true,
-    resizable: true,
+    resizable: true
   },
   enableRangeSelection: true,
   enableCellChangeFlash: true,
@@ -37,7 +37,7 @@ export const options = {
     if (params.data.user) {
       return { background: "#B2E3F1" };
     }
-  },
+  }
 };
 
 export class CalendarSheet {
@@ -51,9 +51,9 @@ export class CalendarSheet {
       field: "github",
       width: 80,
       suppressSizeToFit: true,
-      cellRenderer: this.renderGithub,
+      cellRenderer: this.renderGithub
     },
-    { headerName: "Day", field: "date", width: 90, suppressSizeToFit: true },
+    { headerName: "Day", field: "date", width: 90, suppressSizeToFit: true }
   ];
   sortModel = [{ colId: "summary", sort: "dsc" }];
   rowData = [];
@@ -77,7 +77,7 @@ export class CalendarSheet {
   createUserIdRow(user: UserMetric) {
     const row = {
       user: user.name,
-      github: user.nickname,
+      github: user.nickname
     };
     return row;
   }
@@ -87,7 +87,7 @@ export class CalendarSheet {
     const row = {
       user: "",
       date: days[day],
-      github: "",
+      github: ""
     };
     return row;
   }
@@ -112,7 +112,7 @@ export class CalendarSheet {
           field: dateStr,
           suppressSizeToFit: true,
           cellClassRules: deepScheme,
-          menuTabs: [],
+          menuTabs: []
         });
       });
     }

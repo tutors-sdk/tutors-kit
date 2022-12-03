@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LightSwitch, menu } from "@brainandbones/skeleton";
+  import { LightSwitch, menu } from "@skeletonlabs/skeleton";
   import { layout, storeTheme } from "tutors-reader-lib/src/stores/stores";
   import { Icon } from "tutors-ui";
 

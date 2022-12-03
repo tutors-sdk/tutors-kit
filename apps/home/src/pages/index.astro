@@ -1,56 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Contributor from '../components/Contributor.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Contributor from "../components/Contributor.astro";
 ---
 
 <Layout title="Home">
   <main>
-    <div
-      class="flex items-center w-full px-4 py-20 bg-cover bg-base-200"
-      style="background-image:url('https://source.unsplash.com/x6sZagaUOM4/1920x1280')"
-    >
-      <div
-        class="card !bg-surface-100/40 dark:!bg-surface-800/40 backdrop-blur text-gray-900 my-8 p-12 mx-auto"
-      >
+    <div class="flex items-center w-full px-4 py-20 bg-cover bg-base-200" style="background-image:url('https://source.unsplash.com/x6sZagaUOM4/1920x1280')">
+      <div class="card !bg-surface-100/40 dark:!bg-surface-800/40 backdrop-blur text-gray-900 my-8 p-12 mx-auto">
         <div class="card-body">
           <h1 class="!text-2xl dark:text-white">
             <strong>Tutors: An Open Learning Web Toolkit</strong>
           </h1>
-          <p class="text-lg py-4">
-            A collection of open source components &amp; services supporting the creation of
-            transformative learning experiences using open web standards.
-          </p>
+          <p class="text-lg py-4">A collection of open source components &amp; services supporting the creation of transformative learning experiences using open web standards.</p>
           <div class="card-actions">
-            <a
-              href="https://github.com/tutors-sdk/tutors"
-              target="_blank"
-              class="btn bg-primary-500 text-white"
-            >
-              Source Repo
-            </a>
-            <a
-              href="https://docs.tutors.dev"
-              target="_blank"
-              rel="noreferrer"
-              class="btn bg-primary-500 text-white"
-            >
-              Documentation
-            </a>
-            <a
-              href="https://time.tutors.dev/#/all"
-              target="_blank"
-              class="btn bg-primary-500 text-white"
-            >
-              Module Catalogue
-            </a>
-            <a
-              href="https://time.tutors.dev/#/current"
-              target="_blank"
-              class="btn bg-primary-500 text-white"
-            >
-              Live Module Activity
-            </a>
+            <a href="https://github.com/tutors-sdk/tutors" target="_blank" class="btn bg-primary-500 text-white"> Source Repo</a>
+            <a href="https://docs.tutors.dev" target="_blank" rel="noreferrer" class="btn bg-primary-500 text-white"> Documentation</a>
+            <a href="https://time.tutors.dev/#/all" target="_blank" class="btn bg-primary-500 text-white"> Module Catalogue</a>
+            <a href="https://time.tutors.dev/#/current" target="_blank" class="btn bg-primary-500 text-white"> Live Module Activity</a>
           </div>
         </div>
       </div>
@@ -116,49 +83,14 @@ import Contributor from '../components/Contributor.astro';
             github="https://github.com/jordharr"
             email="contact@jordanharrison.ie"
           />
-          <Contributor
-            image="https://avatars.githubusercontent.com/u/87311656?s=70&v=4"
-            name="Emma Kidney"
-            github="https://github.com/ekidneyrh"
-          />
-          <Contributor
-            image="https://ca.slack-edge.com/TCLNFMT45-U028ZUHFELT-6f212632b977-512"
-            name="Ellen O'Carroll"
-            work="Red Hat"
-          />
-          <Contributor
-            image="https://ca.slack-edge.com/TEL752280-UEN0YN2NT-a2e16b2824c2-192"
-            name="Pete Windle"
-            work="SETU"
-          />
-          <Contributor
-            image="https://ca.slack-edge.com/TCLNFMT45-U03N496M3D4-f2235d037186-512"
-            name="David Fan"
-            work="Red Hat"
-            github="https://github.com/Fan"
-          />
-          <Contributor
-            image="https://avatars.githubusercontent.com/u/39221065?v=4"
-            name="Bernard Thompson"
-            work="Kargo"
-            github="https://github.com/bonjo7"
-          />
-          <Contributor
-            image="https://avatars.githubusercontent.com/u/647104?v=4"
-            name="Leigh Griffin"
-            work="Red Hat"
-            github="https://github.com/lgriffin"
-          />
-          <Contributor
-            image="https://avatars.githubusercontent.com/u/32563455?v=4"
-            name="Evgeniy Dainovich"
-            github="https://github.com/zenby"
-          />
-          <Contributor
-            image="https://avatars.githubusercontent.com/u/100454651?v=4"
-            name="Josh Bennett"
-            github="https://github.com/JoshBennett793"
-          />
+          <Contributor image="https://avatars.githubusercontent.com/u/87311656?s=70&v=4" name="Emma Kidney" github="https://github.com/ekidneyrh" />
+          <Contributor image="https://ca.slack-edge.com/TCLNFMT45-U028ZUHFELT-6f212632b977-512" name="Ellen O'Carroll" work="Red Hat" />
+          <Contributor image="https://ca.slack-edge.com/TEL752280-UEN0YN2NT-a2e16b2824c2-192" name="Pete Windle" work="SETU" />
+          <Contributor image="https://ca.slack-edge.com/TCLNFMT45-U03N496M3D4-f2235d037186-512" name="David Fan" work="Red Hat" github="https://github.com/Fan" />
+          <Contributor image="https://avatars.githubusercontent.com/u/39221065?v=4" name="Bernard Thompson" work="Kargo" github="https://github.com/bonjo7" />
+          <Contributor image="https://avatars.githubusercontent.com/u/647104?v=4" name="Leigh Griffin" work="Red Hat" github="https://github.com/lgriffin" />
+          <Contributor image="https://avatars.githubusercontent.com/u/32563455?v=4" name="Evgeniy Dainovich" github="https://github.com/zenby" />
+          <Contributor image="https://avatars.githubusercontent.com/u/100454651?v=4" name="Josh Bennett" github="https://github.com/JoshBennett793" />
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
 </script>
 
 <div class="mt-4 mr-4 text-right">
-  <button class="btn btn-icon bg-primary-500 text-white" on:click={drawerClose}><span class="font-bold">X</span></button>
+  <button class="btn btn-icon bg-primary-500 text-white" on:click="{drawerClose}"><span class="font-bold">X</span></button>
 </div>
 <div class="px-12 py-4">
   <div class="flex flex-wrap">
@@ -17,7 +17,7 @@
     {/if}
     <div class="flex w-full flex-wrap justify-center">
       {#each $studentsOnlineList as student}
-        <StudentCard {student} />
+        <StudentCard student="{student}" />
       {/each}
     </div>
   </div>

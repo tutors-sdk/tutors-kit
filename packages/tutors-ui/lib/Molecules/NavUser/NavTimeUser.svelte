@@ -1,7 +1,7 @@
 <script lang="ts">
   import { currentCourse, currentUser } from "tutors-reader-lib/src/stores/stores";
   import Icon from "../../Atoms/Icon/Icon.svelte";
-  import { menu, Avatar, Divider } from "@brainandbones/skeleton";
+  import { menu, Avatar, Divider } from "@skeletonlabs/skeleton";
   let gitUrl = "";
 </script>
 

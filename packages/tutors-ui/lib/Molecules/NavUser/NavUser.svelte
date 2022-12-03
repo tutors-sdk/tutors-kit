@@ -4,7 +4,7 @@
   import type { Course } from "tutors-reader-lib/src/models/course";
   import Icon from "../../Atoms/Icon/Icon.svelte";
   import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
-  import { menu, Avatar, Divider } from "@brainandbones/skeleton";
+  import { menu, Avatar, Divider } from "@skeletonlabs/skeleton";
 
   let user: User;
   let status = false;

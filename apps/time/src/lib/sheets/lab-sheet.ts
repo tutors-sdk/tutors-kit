@@ -16,14 +16,14 @@ export const options = {
   headerHeight: 180,
   defaultColDef: {
     sortable: true,
-    resizable: true,
+    resizable: true
   },
   enableRangeSelection: true,
   enableCellChangeFlash: true,
   enableCharts: true,
   getRowId: function (data) {
     return data.github;
-  },
+  }
 };
 
 export class LabSheet {
@@ -34,7 +34,7 @@ export class LabSheet {
     { headerName: "User", field: "user", width: 180, suppressSizeToFit: true, pinned: "left" },
     { headerName: "Github", field: "github", width: 80, suppressSizeToFit: true, cellRenderer: this.renderGithub },
     { headerName: "Total", field: "summary", width: 60, suppressSizeToFit: true },
-    { headerName: "Date Last Accessed", field: "date", width: 90, suppressSizeToFit: true },
+    { headerName: "Date Last Accessed", field: "date", width: 90, suppressSizeToFit: true }
   ];
   sortModel = [{ colId: "summary", sort: "dsc" }];
   rowData = [];
@@ -71,7 +71,7 @@ export class LabSheet {
       user: user.name, //this.formatName(user.name, user.email),
       summary: 0,
       date: user.last,
-      github: user.nickname,
+      github: user.nickname
     };
     return row;
   }
@@ -97,9 +97,9 @@ export class LabSheet {
         cellRange: {
           rowStartIndex: 0,
           rowEndIndex: this.rowData.length,
-          columns: columnNames,
+          columns: columnNames
         },
-        chartContainer: document.querySelector("#chart"),
+        chartContainer: document.querySelector("#chart")
         //suppressChartRanges: true,
         //unlinkChart: true,
       });

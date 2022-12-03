@@ -1,5 +1,5 @@
 ---
-import { Avatar } from '@brainandbones/skeleton';
+import { Avatar } from "@brainandbones/skeleton";
 
 export interface Props {
   image: string;
@@ -36,7 +36,7 @@ const { image, name, work, github, twitter, email } = Astro.props;
         }
         {
           email ? (
-            <a href={'mailto:' + email} target="_blank">
+            <a href={"mailto:" + email} target="_blank">
               <span class="iconify mr-1" data-icon="clarity:email-solid" data-height="16" />
             </a>
           ) : null

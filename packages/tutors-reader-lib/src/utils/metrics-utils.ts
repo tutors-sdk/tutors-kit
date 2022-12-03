@@ -13,7 +13,7 @@ function populateCalendar(user: UserMetric) {
         const dayMeasure: DayMeasure = {
           date: key,
           dateObj: Date.parse(key),
-          metric: value,
+          metric: value
         };
         user.calendarActivity.push(dayMeasure);
       }
@@ -62,7 +62,7 @@ function findInMetric(title: string, metric: Metric) {
 function expandGenericMetrics(id: string, fbData): any {
   const metric = {
     id: "",
-    metrics: [],
+    metrics: []
   };
   metric.id = id;
   if (fbData) {
@@ -124,7 +124,7 @@ export async function fetchAllUsers(courseUrl: string, allLabs): Promise<Map<str
           duration: userMetric.duration,
           metrics: userMetric.metrics,
           labActivity: [],
-          calendarActivity: [],
+          calendarActivity: []
         };
         if (user.onlineStatus == undefined) {
           user.onlineStatus = "online";

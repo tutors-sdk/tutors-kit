@@ -30,14 +30,14 @@ export function generateToc(source: string): string {
       const tocItem = {
         anchor,
         level: Number(level),
-        text,
+        text
       };
       if (toc) {
         toc.push(tocItem);
       }
       collection.push({
         type: "header",
-        ...tocItem,
+        ...tocItem
       });
     }
     return "";
