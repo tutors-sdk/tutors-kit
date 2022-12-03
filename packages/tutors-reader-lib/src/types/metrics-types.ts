@@ -1,4 +1,5 @@
 import type { Topic } from "../models/topic";
+import type { User } from "./auth-types";
 import type { Lo } from "./lo-types";
 
 export interface Metric {
@@ -8,15 +9,6 @@ export interface Metric {
   last: string;
   duration: number;
   metrics: Metric[];
-}
-
-export interface User {
-  userId: string;
-  email: string;
-  picture: string;
-  name: string;
-  nickname: string;
-  onlineStatus: string;
 }
 
 export interface DayMeasure {

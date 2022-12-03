@@ -1,4 +1,4 @@
-import type { refreshStudents, StatusChange, StudentMetric, User } from "../types/metrics-types";
+import type { refreshStudents, StatusChange, StudentMetric } from "../types/metrics-types";
 import type { MetricsService } from "./metrics-service";
 import type { Topic } from "../models/topic";
 import type { Lo } from "../types/lo-types";
@@ -67,7 +67,7 @@ export class PresenceService {
         img: user.picture,
         topic: undefined,
         lab: undefined,
-        time: time,
+        time: time
       };
       this.students.push(student);
     }
