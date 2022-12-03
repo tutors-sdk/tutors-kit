@@ -11,15 +11,15 @@ const keys = {
   auth0: {
     clientId: clientId,
     domain: domain,
-    redirectUri: redirectUri,
+    redirectUri: redirectUri
   },
   firebase: {
     apiKey: apiKey,
     databaseURL: databaseUrl,
     projectId: projectId,
     tutorStoreId: tutorStoreId,
-    tutorStoreSecret: tutorStoreSecret,
-  },
+    tutorStoreSecret: tutorStoreSecret
+  }
 };
 
 export function getKeys() {

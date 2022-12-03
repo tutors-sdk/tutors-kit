@@ -42,7 +42,7 @@ export async function getCourseSummary(courseId: string): Promise<CourseSummary>
     count: 0,
     isPrivate: lo.properties?.private,
     currentLo: null,
-    studentIds: new Set<string>(),
+    studentIds: new Set<string>()
   };
   return courseTime;
 }
@@ -55,14 +55,14 @@ export function updateLo(root: string, course: Course, currentLo: Lo) {
     courseTitle: course.lo.title,
     subRoute: currentLo.route,
     isPrivate: 0,
-    tutorsTimeId: getTutorsTimeId(),
+    tutorsTimeId: getTutorsTimeId()
   };
   if (currentLo.type === "course" && currentLo.icon) {
     lo.icon = currentLo.icon;
   } else {
     if (currentLo?.frontMatter?.icon) {
       lo.icon = {
-        type: currentLo.frontMatter.icon["type"],
+        type: currentLo.frontMatter.icon["type"]
       };
       if (currentLo.frontMatter.icon["color"]) {
         lo.icon.color = currentLo.frontMatter.icon["color"];

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { LayoutMenu, NavTimeUser, Metric } from "tutors-ui";
-  import { AppBar, Divider } from "@brainandbones/skeleton";
+  import { AppBar, Divider } from "@skeletonlabs/skeleton";
   import TutorsIcon from "./TutorsIcon.svelte";
 
   export let title = "Tutors Time";
@@ -28,14 +28,14 @@
     </div>
   </svelte:fragment>
   <div class="hidden md:inline-block">
-    <Metric value={modules} title="Active Modules" />
-    <Metric value={visits} title="Page Loads" />
-    <Metric value={users} title="Students Online" />
+    <Metric value="{modules}" title="Active Modules" />
+    <Metric value="{visits}" title="Page Loads" />
+    <Metric value="{users}" title="Students Online" />
   </div>
   <svelte:fragment slot="trail">
     <div class="flex items-center space-x-1 lg:space-x-4">
       <LayoutMenu />
-      <Divider vertical={true} borderWidth="border-l" class="hidden lg:block" />
+      <Divider vertical="{true}" borderWidth="border-l" class="hidden lg:block" />
       <NavTimeUser />
     </div>
   </svelte:fragment>

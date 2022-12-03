@@ -1,4 +1,4 @@
-import { cubicInOut, cubicOut } from 'svelte/easing';
+import { cubicInOut, cubicOut } from "svelte/easing";
 
 export const cardTransition = () => {
   return {

@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import type { FirebaseKeys } from "../types/store-types";
 import { child, get, getDatabase, ref, runTransaction, remove, set } from "firebase/database";
 
 export function getNode(lotype: string, url: string, path: string): string {
@@ -134,7 +133,7 @@ export function formatDate(date: Date): string {
   return [year, month, day].join("-");
 }
 
-export async function initFirebase(keys: FirebaseKeys) {
+export async function initFirebase(keys: any) {
   if (keys.apiKey !== "XXX") {
     initializeApp(keys);
     const auth = getAuth();
@@ -142,7 +141,7 @@ export async function initFirebase(keys: FirebaseKeys) {
   }
 }
 
-export async function readAllCourseIds(keys: FirebaseKeys): Promise<string[]> {
+export async function readAllCourseIds(keys: any): Promise<string[]> {
   const courseList = [];
   const auth = getAuth();
   await signInWithEmailAndPassword(auth, keys.tutorStoreId, keys.tutorStoreSecret);
@@ -157,7 +156,7 @@ export async function readAllCourseIds(keys: FirebaseKeys): Promise<string[]> {
   return courseList;
 }
 
-export async function readAllCourseAccessIds(keys: FirebaseKeys): Promise<any[]> {
+export async function readAllCourseAccessIds(keys: any): Promise<any[]> {
   const courseList = [];
   const auth = getAuth();
   await signInWithEmailAndPassword(auth, keys.tutorStoreId, keys.tutorStoreSecret);

@@ -3,7 +3,7 @@
   import { layout } from "tutors-reader-lib/src/stores/stores";
   import { onDestroy } from "svelte";
   import Iconify from "@iconify/svelte";
-  import { Avatar } from "@brainandbones/skeleton";
+  import { Avatar } from "@skeletonlabs/skeleton";
 
   export let lo: Lo;
   export let miniImage = false;

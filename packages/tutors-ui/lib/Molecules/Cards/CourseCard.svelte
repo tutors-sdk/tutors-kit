@@ -4,7 +4,7 @@
   import { onDestroy } from "svelte";
   import { cardTransition } from "../../animations";
   import Iconify from "@iconify/svelte";
-  import { Avatar } from "@brainandbones/skeleton";
+  import { Avatar } from "@skeletonlabs/skeleton";
   import Icon from "../../Atoms/Icon/Icon.svelte";
   import Metric from "../../Atoms/Metric/Metric.svelte";
 
@@ -35,10 +35,7 @@
 </script>
 
 <a href="{lo.route}" target="{target}">
-  <div
-    transition:cardTransition
-    class="card !bg-surface-50 dark:!bg-surface-700 border-accent-500 m-2 border-y-8 {cardWidths} transition-all hover:scale-105"
-  >
+  <div transition:cardTransition class="card !bg-surface-50 dark:!bg-surface-700 border-accent-500 m-2 border-y-8 {cardWidths} transition-all hover:scale-105">
     <header class="card-header flex flex-row items-center justify-between p-3">
       <div class="inline-flex w-full">
         <div class="line-clamp-2 flex-auto {headingText}">{lo.title}</div>
@@ -54,19 +51,9 @@
     <div class="card-body">
       <figure class="flex justify-center object-scale-down p-1">
         {#if lo.icon}
-          <Iconify
-            icon="{lo.icon.type}"
-            color="{colourPrefix}{lo.icon.color}"
-            height="{iconHeight}"
-          />
+          <Iconify icon="{lo.icon.type}" color="{colourPrefix}{lo.icon.color}" height="{iconHeight}" />
         {:else}
-          <Avatar
-            src="{lo.img}"
-            alt="{lo.title}"
-            width="{imageHeight}"
-            rounded="rounded-xl"
-            background="none"
-          />
+          <Avatar src="{lo.img}" alt="{lo.title}" width="{imageHeight}" rounded="rounded-xl" background="none" />
         {/if}
       </figure>
     </div>

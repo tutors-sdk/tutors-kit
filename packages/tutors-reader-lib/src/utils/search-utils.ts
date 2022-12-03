@@ -54,7 +54,7 @@ export function searchHits(los: Lo[], searchTerm: string): ResultType[] {
         lab: obj.lab,
         title: `${obj.lab.parentLo.title}/${removeLeadingHashes(obj.lab.title)}`,
         link: obj.lab?.route,
-        html: "",
+        html: ""
       };
       result.link = result.link.substring(1);
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands

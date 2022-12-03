@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import "@brainandbones/skeleton/styles/all.css";
-  import "@brainandbones/skeleton/themes/theme-skeleton.css";
+  import "@skeletonlabs/skeleton/styles/all.css";
+  import "@skeletonlabs/skeleton/themes/theme-skeleton.css";
   import "../app.postcss";
   import tutors from "tutors-ui/lib/themes/tutors.css";
   // import dyslexia from "tutors-ui/lib/themes/dyslexia.css";
-  import { AppShell } from "@brainandbones/skeleton";
+  import { AppShell } from "@skeletonlabs/skeleton";
   import { storeTheme } from "tutors-reader-lib/src/stores/stores";
 
   onMount(async () => {

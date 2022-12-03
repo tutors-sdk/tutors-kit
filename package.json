@@ -2,6 +2,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
+    "cli/*",
     "packages/*"
   ],
   "scripts": {
@@ -17,5 +18,5 @@
     "prettier-plugin-svelte": "^2.7.0",
     "turbo": "latest"
   },
-  "packageManager": "yarn@1.22.17"
+  "packageManager": "npm@8.19.2"
 }

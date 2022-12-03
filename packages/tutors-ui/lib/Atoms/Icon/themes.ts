@@ -7,13 +7,7 @@ export function setIconLib(iconLib: any) {
   StandardIconLib = iconLib;
 }
 
-export const themes = [
-  "tutors",
-  "tutors-dark",
-  "tutors-black",
-  "tutors-dyslexia",
-  "tutors-wireframe"
-];
+export const themes = ["tutors", "tutors-dark", "tutors-black", "tutors-dyslexia", "tutors-wireframe"];
 
 export const themeIcons = {
   tutors: FluentIconLib,
