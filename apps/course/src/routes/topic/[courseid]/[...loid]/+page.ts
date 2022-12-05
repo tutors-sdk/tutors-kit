@@ -10,12 +10,11 @@ export const load: PageLoad = async ({ params }) => {
     unitId = topicId.slice(unitPos + 1);
     topicId = topicId.slice(0, unitPos);
   }
+  if (topicId.slice(-1) == "/") topicId = topicId.slice(0, -1);
   const topic = await courseService.readTopic(params.courseid, topicId);
   if (unitPos !== -1) {
     const unitLo = topic.lo.los.filter((lo) => lo.id == unitId);
     currentLo.set(unitLo[0]);
-    // const el = document.getElementById(unitId);
-    // if (el) el.scrollIntoView();
   } else {
     currentLo.set(topic.lo);
     unitId = "";
