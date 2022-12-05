@@ -45,7 +45,7 @@
   <svelte:fragment slot="trail">
     <div class="flex items-center space-x-1 lg:space-x-4">
       {#if !$currentCourse?.isPortfolio()}
-        <a class="btn btn-sm" href="/#/search/{$courseUrl}"
+        <a class="btn btn-sm" href="/search/{$courseUrl}"
           ><Icon type="search" />
           <span class="hidden text-sm font-bold lg:block">Search</span>
         </a>
