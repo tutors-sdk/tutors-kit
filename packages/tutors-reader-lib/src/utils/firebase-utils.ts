@@ -94,22 +94,25 @@ export function updateCalendar(root: string) {
 }
 
 export async function fetchAllCourseAccess() {
-  try {
-    const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, "all-course-access"));
-    const courseList: any[] = [];
-    if (snapshot.exists()) {
-      const courseObjs: any = snapshot.val();
-      for (const [key, value] of Object.entries(courseObjs)) {
-        const course: any = value;
-        course.courseId = key;
-        courseList.push(course);
+  const dbRef = ref(getDatabase());
+  const snapshot = await get(child(dbRef, "all-course-access"));
+  const courseList: any[] = [];
+  if (snapshot.exists()) {
+    const courseObjs: any = snapshot.val();
+    let course: any;
+    for (const [key, value] of Object.entries(courseObjs)) {
+      try {
+        course = value;
+        if (course) {
+          course.courseId = key;
+          courseList.push(course);
+        }
+      } catch (error) {
+        console.log("TutorStore Error");
       }
     }
-    return courseList;
-  } catch (error) {
-    console.log("TutorStore Error");
   }
+  return courseList;
 }
 
 export async function deleteCourseFromList(url: string) {
