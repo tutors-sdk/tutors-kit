@@ -13,16 +13,23 @@
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
   import dyslexia from "tutors-ui/lib/themes/dyslexia.css";
-  import { authenticating, transitionKey, infoDrawer, calendarDrawer, tocDrawer, storeTheme, currentCourse, onlineDrawer, currentLo } from "tutors-reader-lib/src/stores/stores";
+  import { authenticating, transitionKey, infoDrawer, calendarDrawer, tocDrawer, themeBuilderDrawer, storeTheme, currentCourse, onlineDrawer, currentLo } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
   import { getKeys } from "../environment";
   import TutorsTerms from "$lib/support/TutorsTerms.svelte";
   import { analyticsService } from "tutors-reader-lib/src/services/analytics-service";
   import OnlineBar from "$lib/navigators/sidebars/OnlineBar.svelte";
+  import ThemeBuilderBar from "$lib/navigators/sidebars/ThemeBuilderBar.svelte";
   import { initServices } from "./tutors-startup";
 
   let mounted = false;
   const themes: any = { tutors, dyslexia };
+
+  function handleKeydown(event: { key: string; }) {
+		if(event.key === 't') {
+      themeBuilderDrawer.set(true);
+    }
+	}
 
   onMount(async () => {
     mounted = true;
@@ -54,6 +61,8 @@
   <title>{$currentLo?.title}</title>
 </svelte:head>
 
+<svelte:window on:keydown={handleKeydown}/>
+
 <div id="app" class="h-full overflow-hidden">
   {#if $authenticating}
     <TutorsTerms />
@@ -69,6 +78,9 @@
     </Drawer>
     <Drawer open="{onlineDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2 xl:w-2/5 2xl:w-1/3" blur="backdrop-blur-none" class="z-50">
       <OnlineBar />
+    </Drawer>
+    <Drawer open="{themeBuilderDrawer}" position="right" width="w-full md:w-3/4 lg:w-1/2" blur="backdrop-blur-none" class="z-50">
+      <ThemeBuilderBar />
     </Drawer>
     <AppShell class="h-screen">
       <svelte:fragment slot="header">
