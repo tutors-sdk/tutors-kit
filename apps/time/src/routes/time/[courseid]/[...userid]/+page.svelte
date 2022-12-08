@@ -3,7 +3,7 @@
   import type { PageData } from "./$types";
   import { fade } from "svelte/transition";
   import { writable, type Writable } from "svelte/store";
-  import { Tab, TabGroup } from "@brainandbones/skeleton";
+  import { Tab, TabGroup } from "@skeletonlabs/skeleton";
 
   import { currentUser } from "tutors-reader-lib/src/stores/stores";
   import LabTime from "$lib/time/LabTime.svelte";
