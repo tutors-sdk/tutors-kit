@@ -42,6 +42,9 @@ function redirectHtmlFile(): string {
           array.pop();
           var tutorsUrl = array.join('/');
           window.location = "https://reader.tutors.dev" + "/#/course/" + tutorsUrl;
+          // const host = window.location.host;
+          // const subdomain = host.split('.')[0];
+          // window.location = "https://reader.tutors.dev/course/" + subdomain;
         </script>
       </body>
     </html>`;
