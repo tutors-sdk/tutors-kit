@@ -1,6 +1,6 @@
 <script lang="ts">
   import { LightSwitch, menu } from "@skeletonlabs/skeleton";
-  import { layout, storeTheme } from "tutors-reader-lib/src/stores/stores";
+  import { layout, storeTheme, themeBuilderDrawer } from "tutors-reader-lib/src/stores/stores";
   import { Icon } from "tutors-ui";
 
   function applyInitialLayout() {
@@ -22,6 +22,10 @@
       //window.localStorage.setItem("site-layout", "compacted");
     }
   }
+
+  const themeBuilderDrawerOpen: any = () => {
+    themeBuilderDrawer.set(true);
+  };
 
   applyInitialLayout();
 </script>
@@ -67,6 +71,13 @@
         }}"
       >
         <p class="text-lg">Dyslexia</p>
+      </li>
+
+    <hr />
+    <li
+        class="option"
+        on:click="{themeBuilderDrawerOpen}">
+        <p class="text-lg">Theme Builder</p>
       </li>
     </ul>
   </nav>

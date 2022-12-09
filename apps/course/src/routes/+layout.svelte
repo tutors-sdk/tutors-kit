@@ -25,12 +25,6 @@
   let mounted = false;
   const themes: any = { tutors, dyslexia };
 
-  function handleKeydown(event: { key: string; }) {
-		if(event.key === 't') {
-      themeBuilderDrawer.set(true);
-    }
-	}
-
   onMount(async () => {
     mounted = true;
     storeTheme.subscribe(setBodyThemeAttribute);

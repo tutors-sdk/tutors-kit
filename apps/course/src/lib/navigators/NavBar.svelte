@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { courseUrl, currentCourse, calendarDrawer, infoDrawer, tocDrawer } from "tutors-reader-lib/src/stores/stores";
+  import { courseUrl, currentCourse, calendarDrawer, infoDrawer, themeBuilderDrawer, tocDrawer } from "tutors-reader-lib/src/stores/stores";
   import { LayoutMenu, NavTitle, NavUser } from "tutors-ui";
   import Icon from "tutors-ui/lib/Atoms/Icon/Icon.svelte";
   import { AppBar, Divider } from "@skeletonlabs/skeleton";
