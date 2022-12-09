@@ -25,9 +25,10 @@ export class Lab {
     this.autoNumber = course.areLabStepsAutoNumbered();
     this.url = labId;
     this.lo = lo;
-    this.objectivesHtml = convertMd(this.lo.los[0].contentMd, this.url);
+    const assetUrl = labId.replace(`/lab/${course.id}`, course.url);
+    this.objectivesHtml = convertMd(this.lo.los[0].contentMd, assetUrl);
     this.lo.los.forEach((chapter) => {
-      this.chaptersHtml.set(encodeURI(chapter.shortTitle), convertMd(chapter.contentMd, labId.replace("/lab/", "")));
+      this.chaptersHtml.set(encodeURI(chapter.shortTitle), convertMd(chapter.contentMd, assetUrl));
       this.chaptersTitles.set(chapter.shortTitle, removeLeadingHashes(chapter.title));
     });
     this.steps = Array.from(this.chaptersHtml.keys());

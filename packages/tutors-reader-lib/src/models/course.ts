@@ -5,12 +5,13 @@ import type { IconNav, IconNavBar } from "../types/icon-types";
 import { addIcon } from "tutors-ui/lib/Atoms/Icon/themes";
 
 export class Course {
+  url = "";
+  id = "";
   lo: Lo;
   topics: Topic[] = [];
   units: Lo[];
   standardLos: Lo[];
   allLos: Lo[];
-  url = "";
   authLevel = 0;
   topicIndex = new Map<string, Topic>();
   hydratedLabs = new Map<string, any>();
@@ -28,9 +29,10 @@ export class Course {
     bar: []
   };
 
-  constructor(lo: Lo, courseId: string) {
-    this.url = courseId;
-    injectCourseUrl(lo, courseId);
+  constructor(lo: Lo, courseId: string, courseUrl:string) {
+    this.id = courseId;
+    this.url = courseUrl;
+    injectCourseUrl(lo, courseId, courseUrl);
     // eslint-disable-next-line no-prototype-builtins
     if (lo.properties.hasOwnProperty("auth")) this.authLevel = lo.properties.auth as unknown as number;
     threadLos(lo);

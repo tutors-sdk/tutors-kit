@@ -12,11 +12,17 @@ export const courseService = {
 
   async getOrLoadCourse(courseId: string): Promise<Course> {
     let course = this.courses.get(courseId);
+    let courseUrl = courseId;
     if (!course) {
-      const courseUrl = "https://" + courseId + "/tutors.json";
+      if (!courseId.includes(".netlify.app")) {
+        courseUrl = `${courseId}.netlify.app`;
+      } else {
+        courseId = courseId.split(".")[0];
+      }
       try {
-        const response = await axios.get<Lo>(courseUrl);
-        course = new Course(response.data, courseId);
+        console.log(`URL: ${courseUrl}/tutors.json`);
+        const response = await axios.get<Lo>(`https://${courseUrl}/tutors.json`);
+        course = new Course(response.data, courseId, courseUrl);
         this.courses.set(courseId, course);
         return course;
       } catch (error) {
