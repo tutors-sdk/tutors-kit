@@ -13,7 +13,18 @@
   import TocBar from "$lib/navigators/sidebars/TocBar.svelte";
   import tutors from "tutors-ui/lib/themes/tutors.css";
   import dyslexia from "tutors-ui/lib/themes/dyslexia.css";
-  import { authenticating, transitionKey, infoDrawer, calendarDrawer, tocDrawer, themeBuilderDrawer, storeTheme, currentCourse, onlineDrawer, currentLo } from "tutors-reader-lib/src/stores/stores";
+  import {
+    authenticating,
+    transitionKey,
+    infoDrawer,
+    calendarDrawer,
+    tocDrawer,
+    themeBuilderDrawer,
+    storeTheme,
+    currentCourse,
+    onlineDrawer,
+    currentLo
+  } from "tutors-reader-lib/src/stores/stores";
   import PageTransition from "$lib/PageTransition.svelte";
   import { getKeys } from "../environment";
   import TutorsTerms from "$lib/support/TutorsTerms.svelte";
@@ -54,8 +65,6 @@
   {@html `\<style\>${themes[$storeTheme]}}\</style\>`}
   <title>{$currentLo?.title}</title>
 </svelte:head>
-
-<svelte:window on:keydown={handleKeydown}/>
 
 <div id="app" class="h-full overflow-hidden">
   {#if $authenticating}
